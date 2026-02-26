@@ -1,0 +1,226 @@
+% ============================================================
+%  Section 6: Literature and Research Discovery
+% ============================================================
+
+\section{Literature \& Research Discovery}
+
+% ---- The discovery problem ---------------------------------
+\begin{frame}{The Discovery Problem}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Scale of the challenge}\\[0.3em]
+      \begin{itemize}
+        \item arXiv: $>$2.4 million papers as of 2024; $\sim$15K new papers/month in CS alone
+        \item PubMed: $>$36 million citations
+        \item Keyword search misses semantically related work
+        \item Citation networks reveal influence but not recency
+        \item Staying current requires curated workflows
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Traditional approaches failing}\\[0.3em]
+      \begin{itemize}
+        \item Google Scholar: good recall, poor precision
+        \item Manual RSS / email alerts: unscalable
+        \item Conference proceedings: siloed by venue
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Semantic vs.\ keyword search}\\[0.4em]
+      \begin{tabular}{lcc}
+        \toprule
+        & \textbf{Keyword} & \textbf{Semantic} \\
+        \midrule
+        Exact matches & $\checkmark\checkmark$ & $\checkmark$ \\
+        Related concepts & $\times$ & $\checkmark\checkmark$ \\
+        Multilingual & $\times$ & $\checkmark$ \\
+        Speed & Fast & Moderate \\
+        Explainability & High & Lower \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Tool survey -------------------------------------------
+\begin{frame}{Tool Survey: Research Discovery}
+  \small
+  \begin{tabularx}{\textwidth}{lXX}
+    \toprule
+    \textbf{Tool} & \textbf{Core strength} & \textbf{Best use case} \\
+    \midrule
+    \tool{Semantic Scholar} & Semantic search, citation graph, open API & Programmatic access, citation analysis \\
+    \tool{Elicit}           & Structured extraction (PICO / columns) & Systematic reviews, hypothesis scoping \\
+    \tool{ResearchRabbit}   & Citation network visualization, alerts & Snowballing from seed papers \\
+    \tool{Consensus}        & Evidence synthesis, yes/no queries & Quick claim verification \\
+    \tool{Connected Papers} & Visual citation graph & Discovering neighboring papers \\
+    \tool{Perplexity}       & Web + academic search with citations & Fast question answering with sources \\
+    \tool{NotebookLM}       & Document Q\&A with grounding & Deep dive into a curated paper set \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
+% ---- Spotlight: Elicit -------------------------------------
+\begin{frame}{Spotlight: \tool{Elicit}}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \small
+      \textbf{What Elicit does}\\[0.2em]
+      \begin{itemize}
+        \item AI-powered systematic review assistant
+        \item Input: research question $\to$ Elicit queries literature
+        \item Extracts structured data: population, intervention,\\ outcome, sample size, findings
+        \item Presents results as a \emph{configurable extraction table}
+        \item Upload your own PDFs for extraction
+      \end{itemize}
+      \vspace{0.2em}
+      \textbf{Researcher workflow}\\[0.2em]
+      \begin{enumerate}
+        \item Pose a specific research question
+        \item Review top-N papers in table form
+        \item Export to CSV for further analysis
+        \item Synthesize patterns across studies
+      \end{enumerate}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Example extraction columns}\\[0.4em]
+      \begin{tabular}{l}
+        \toprule
+        Paper title \& year \\
+        Dataset used \\
+        Method category \\
+        Key metric \& value \\
+        Reported limitations \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.7em}
+      \alert{Caveat:} Elicit only covers papers indexed by Semantic Scholar. Verify extractions — LLM-based extraction can miss nuance.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Spotlight: ResearchRabbit ----------------------------
+\begin{frame}{Spotlight: \tool{ResearchRabbit}}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \small
+      \textbf{Core feature: Citation Network Visualization}\\[0.2em]
+      \begin{itemize}
+        \item Start with 1--3 seed papers
+        \item Visualizes papers citing and cited-by the seeds
+        \item Color-codes by recency, citation count, and similarity
+        \item ``This paper only'' vs.\ ``All similar work'' views
+        \item \textbf{Zotero integration}: sync collections bi-directionally
+      \end{itemize}
+      \vspace{0.2em}
+      \textbf{Use for snowball literature search}\\[0.2em]
+      \begin{enumerate}
+        \item Seed with 2--3 highly cited papers in your area
+        \item Explore ``later work'' graph
+        \item Filter by year, venue, or author
+        \item Export selected papers to Zotero
+      \end{enumerate}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Strengths}\\[0.3em]
+      \begin{itemize}
+        \item Visual — reveals clusters of related work instantly
+        \item Weekly email digests of new papers in your collection's neighborhood
+        \item Free for academic use
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Limitations}\\[0.3em]
+      \begin{itemize}
+        \item Coverage dependent on Semantic Scholar
+        \item Visualization can be overwhelming for large graphs
+        \item No structured extraction (complement with Elicit)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Spotlight: Semantic Scholar API -----------------------
+\begin{frame}[fragile]{Spotlight: \tool{Semantic Scholar} + API}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Programmatic access}~\parencite{lo2023semantic}\\[0.3em]
+      \begin{lstlisting}[language=python, basicstyle=\ttfamily\scriptsize]
+import requests
+
+BASE = "https://api.semanticscholar.org"
+
+def search_papers(query, limit=10):
+    url = BASE + "/graph/v1/paper/search"
+    params = {
+        "query": query,
+        "limit": limit,
+        "fields": "title,year,authors,"
+                  "citationCount,abstract,"
+                  "openAccessPdf"
+    }
+    r = requests.get(url, params=params)
+    return r.json()["data"]
+
+papers = search_papers(
+    "transformer attention mechanism"
+)
+for p in papers:
+    print(p["title"], p["year"],
+          p["citationCount"])
+      \end{lstlisting}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{API capabilities}\\[0.3em]
+      \begin{itemize}
+        \item Search by keyword, author, venue, DOI
+        \item Fetch full citation/reference lists
+        \item Paper recommendations via \texttt{/recommendations}
+        \item Rate limit: 100 req/5 min (unauthenticated); 10K/day with API key
+        \item Open Access PDF URLs included when available
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Combine with LLMs:}\\
+      Feed paper metadata to Claude for\\ relevance scoring and synthesis.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Workflow pipeline -------------------------------------
+\begin{frame}{Research Discovery Workflow}
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[
+    node distance=0.5cm and 1.0cm,
+    box/.style={draw, rounded corners=3pt, fill=mLightBrown!15,
+                minimum width=2.2cm, minimum height=0.75cm,
+                align=center, font=\small},
+    arr/.style={-{Stealth[length=5pt]}, thick, mLightBrown},
+    lbl/.style={font=\tiny, align=center},
+  ]
+    \node[box] (kw)   {Keyword\\search};
+    \node[box, right=of kw]   (ss)  {Semantic\\Scholar};
+    \node[box, right=of ss]   (cg)  {Citation\\graph\\(ResearchRabbit)};
+    \node[box, right=of cg]   (ex)  {Structured\\extraction\\(Elicit)};
+    \node[box, right=of ex]   (syn) {Synthesis\\(NotebookLM)};
+    \node[box, right=of syn]  (val) {Manual\\validation};
+
+    \draw[arr] (kw.east)  -- (ss.west);
+    \draw[arr] (ss.east)  -- (cg.west);
+    \draw[arr] (cg.east)  -- (ex.west);
+    \draw[arr] (ex.east)  -- (syn.west);
+    \draw[arr] (syn.east) -- (val.west);
+  \end{tikzpicture}}%
+
+  \vspace{0.4em}
+  \begin{itemize}
+    \item The pipeline is \textbf{iterative} — new papers found in step 3 seed another round
+    \item \textbf{Human validation is non-negotiable} at every stage
+    \item AI tools speed up steps 1--5; step 6 remains your responsibility
+  \end{itemize}
+\end{frame}
+
+% ---- Demo placeholder -----------------------------------------------
+\demoframe{Elicit structured review + ResearchRabbit citation network — live demonstration}

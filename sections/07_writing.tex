@@ -1,0 +1,181 @@
+% ============================================================
+%  Section 7: Writing Assistance
+% ============================================================
+
+\section{Writing Assistance}
+
+% ---- Where AI writing help is legitimate -------------------
+\begin{frame}{Where AI Writing Help Is Legitimate}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Pre-writing}\\
+      \begin{itemize}
+        \item Outline generation from notes
+        \item Brainstorming the narrative arc of a paper
+        \item Identifying gaps in an argument structure
+        \item Generating alternative framings of a contribution
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Drafting assistance}\\
+      \begin{itemize}
+        \item Expand bullet points into prose
+        \item Draft related work from citations
+        \item Write boilerplate sections (data collection, ethics)
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Editing \& revision}\\
+      \begin{itemize}
+        \item Grammar and clarity improvement
+        \item Register adjustment (formal/informal)
+        \item Shortening verbose passages
+        \item Non-native speaker polishing
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Specific tasks}\\
+      \begin{itemize}
+        \item Abstract generation from full paper
+        \item Title and subtitle brainstorming
+        \item Response-to-reviewers drafts
+        \item Grant proposal narratives
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Prompting patterns for academic writing ---------------
+\begin{frame}[fragile]{Prompting Patterns for Academic Writing}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize,
+                         caption={Abstract generation}]
+You are a technical writer for a top ML venue.
+Here is the full paper:
+[PAPER TEXT]
+
+Write a 150-word abstract following the
+structure: motivation, problem, method,
+results, contribution. Use precise
+terminology from the paper.
+      \end{lstlisting}
+      \vspace{0.3em}
+      \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize,
+                         caption={Related work expansion}]
+Given these 5 citation entries:
+[BIB ENTRIES]
+
+Write 2 paragraphs of related work
+situating our contribution. Note how
+each prior work differs from ours.
+Method: [METHOD DESCRIPTION]
+      \end{lstlisting}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize,
+                         caption={Reviewer response}]
+Here is Reviewer 2's comment:
+[COMMENT]
+
+And here is our response draft:
+[DRAFT]
+
+As a skeptical reviewer, identify
+any gaps in our response. Suggest
+specific improvements.
+      \end{lstlisting}
+      \vspace{0.3em}
+      \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize,
+                         caption={Clarity editing}]
+Revise the following paragraph for
+clarity and concision. Preserve all
+technical content. Target: 20% shorter.
+Active voice where possible.
+
+[PARAGRAPH TEXT]
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Tool comparison for writing ---------------------------
+\begin{frame}{Tool Comparison for Academic Writing}
+  \small
+  \begin{tabularx}{\textwidth}{lYYYY}
+    \toprule
+    \textbf{Tool} & \textbf{Long-form drafting} & \textbf{Technical accuracy} & \textbf{Citations} & \textbf{Best for} \\
+    \midrule
+    \tool{Claude}       & Excellent & High  & No (verify) & All-round academic writing \\
+    \tool{GPT-4o}       & Excellent & High  & No (verify) & General writing, rewriting \\
+    \tool{Gemini}       & Good      & Good  & Google Scholar & Research + search combined \\
+    \tool{Grammarly}    & Grammar only & N/A & No & Grammar, style checking \\
+    \tool{Writefull}    & Good      & Academic-tuned & No & Non-native speaker editing \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.4em}
+  \small \alert{Note:} None of these tools produce verifiable citations independently. Always cross-check any citation they suggest.
+\end{frame}
+
+% ---- LaTeX-specific assistance ----------------------------
+\begin{frame}[fragile]{LaTeX-Specific Assistance}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{What LLMs do well in LaTeX}\\[0.3em]
+      \begin{itemize}
+        \item Equation formatting from handwritten / pseudocode notation
+        \item TikZ diagram generation from descriptions
+        \item BibTeX entry cleanup and standardization
+        \item Table construction (booktabs from CSV data)
+        \item Algorithm environment from pseudocode
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Example prompt}\\[0.3em]
+      \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize]
+Write a TikZ diagram of a
+Transformer encoder block
+showing: multi-head attention,
+layer norm, FFN, residual
+connections. Use a clean style.
+      \end{lstlisting}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{BibTeX cleanup prompt}\\[0.3em]
+      \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize]
+Clean and standardize these BibTeX
+entries. Fix: missing fields, title
+casing (keep proper nouns), author
+name format (Last, First). Use
+consistent citation keys: AuthorYearKeyword.
+
+[BIB ENTRIES]
+      \end{lstlisting}
+      \vspace{0.5em}
+      \alert{Compile and verify all generated LaTeX.} LLMs produce syntactically plausible but sometimes broken code — always test in your document.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- What to watch out for ---------------------------------
+\begin{frame}{What to Watch Out For}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \begin{alertblock}{Style Homogenization}
+        AI-assisted papers can converge on a ``house style'' — smooth but generic prose. Preserve your voice. Use AI to improve clarity, not replace personality.
+      \end{alertblock}
+    \end{column}
+    \hfill
+    \begin{column}{0.32\textwidth}
+      \begin{alertblock}{Over-Reliance}
+        Heavy AI use can atrophy scientific writing skills. The act of writing \textbf{is} thinking; outsourcing it entirely means outsourcing thought. Use as an assistant, not a ghostwriter.
+      \end{alertblock}
+    \end{column}
+    \hfill
+    \begin{column}{0.32\textwidth}
+      \begin{alertblock}{Confidentiality}
+        Unpublished results, proprietary data, and confidential reviewer comments must \textbf{not} be pasted into commercial AI tools without institutional approval. Check your institution's AI policy.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}

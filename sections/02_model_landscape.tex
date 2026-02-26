@@ -1,0 +1,183 @@
+% ============================================================
+%  Section 2: The Model Landscape
+% ============================================================
+
+\section{The Model Landscape}
+
+% ---- Frontier players table --------------------------------
+\begin{frame}{Frontier Players}
+  \small
+  \begin{tabularx}{\textwidth}{lYYYY}
+    \toprule
+    \textbf{Model} & \textbf{Context window} & \textbf{Multimodal} & \textbf{API access} & \textbf{Open weight} \\
+    \midrule
+    \tool{Claude 3.5 / Opus 4} & 200K & Vision & Yes & No \\
+    \tool{GPT-4o}              & 128K & Vision + Audio & Yes & No \\
+    \tool{Gemini 1.5 Pro}      & 1M   & Vision + Audio & Yes & No \\
+    \tool{Llama 3.1 405B}      & 128K & Text & Via providers & \checkmark \\
+    \tool{Mistral Large}       & 128K & Text & Yes & Partial \\
+    \tool{Qwen2.5-72B}         & 128K & Vision & Via providers & \checkmark \\
+    \tool{DeepSeek-R1}         & 64K  & Text & Yes & \checkmark \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.3em}
+
+  \begin{itemize}
+    \item \textbf{Capability gap is shrinking} — open-weight models are increasingly competitive
+    \item Context window size matters for long papers, large codebases, and multi-document tasks
+  \end{itemize}
+\end{frame}
+
+% ---- Capability tiers --------------------------------------
+\begin{frame}{Capability Tiers}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Chat / Instruction Models}
+        \begin{itemize}
+          \item Fast, conversational, general-purpose
+          \item Strong instruction following
+          \item \textbf{Best for:} writing, summarization,\newline Q\&A, coding assistance
+          \item \textit{Examples:} \model{claude-3.5-sonnet},\newline \model{gpt-4o}, \model{gemini-flash}
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Reasoning / Thinking Models}
+        \begin{itemize}
+          \item Slower; internally ``thinks'' before responding
+          \item Better at multi-step logical problems
+          \item \textbf{Best for:} math proofs, algorithm design,\newline complex debugging, formal reasoning
+          \item \textit{Examples:} \model{o1}, \model{o3}, \model{claude-3.7-sonnet} (extended thinking), \model{deepseek-r1}
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.6em}
+  \alert{Rule of thumb:} Start with a fast model; escalate to a reasoning model when the problem requires structured multi-step inference.
+\end{frame}
+
+% ---- Benchmarks slide --------------------------------------
+\begin{frame}[shrink=12]{Benchmarks — Useful Signal, Not Ground Truth}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[
+          width=\textwidth, height=4.2cm,
+          xbar, bar width=0.35cm,
+          symbolic y coords={SWEBench, HumanEval, MMLU},
+          ytick=data,
+          xmin=0, xmax=105,
+          xlabel={Score (\%)},
+          nodes near coords,
+          nodes near coords align={horizontal},
+          every node near coord/.append style={font=\tiny},
+          axis lines*=left,
+          xmajorgrids=true,
+          grid style={dashed, gray!30},
+          legend style={at={(0.98,0.05)}, anchor=south east, font=\tiny},
+          label style={font=\small},
+          tick label style={font=\small},
+        ]
+          \addplot[fill=mLightBrown!70] coordinates {
+            (49,SWEBench) (92,HumanEval) (88,MMLU)
+          };
+          \addplot[fill=blue!50] coordinates {
+            (49,SWEBench) (90,HumanEval) (87,MMLU)
+          };
+          \addplot[fill=teal!50] coordinates {
+            (35,SWEBench) (74,HumanEval) (80,MMLU)
+          };
+          \legend{Claude family, GPT-4o, Llama 3.1}
+        \end{axis}
+      \end{tikzpicture}
+      \tiny Approximate/illustrative figures; see official leaderboards.
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Key benchmarks}\\[0.3em]
+      \begin{itemize}
+        \item \textbf{MMLU}~\parencite{hendrycks2021mmlu}: broad knowledge (57 subjects)
+        \item \textbf{HumanEval}~\parencite{chen2021codex}: Python function synthesis
+        \item \textbf{SWE-Bench}~\parencite{jimenez2024swebench}: real GitHub issue resolution
+      \end{itemize}
+      \vspace{0.6em}
+      \textbf{Caveats}\\[0.3em]
+      \begin{itemize}
+        \item Contamination risk — benchmarks leak into training data~\parencite{srivastava2022bigbench}
+        \item Does not capture latency, cost, or UX
+        \item Task-specific evals often more informative
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Open-weight models ------------------------------------
+\begin{frame}[fragile]{Open-Weight Models}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Leading families (2024--25)}\\[0.4em]
+      \begin{itemize}
+        \item \tool{Llama 3.1}~\parencite{touvron2023llama2}: 8B / 70B / 405B — Meta's workhorse
+        \item \tool{Mistral}~\parencite{jiang2023mistral}: efficient, strong at code; Mixtral MoE variant
+        \item \tool{Qwen 2.5}: Alibaba; excellent multilingual \& coding
+        \item \tool{DeepSeek-R1}: reasoning model released with full weights
+        \item \tool{Gemma 2}: Google's research-friendly release
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Local deployment}\\[0.3em]
+      Run any open-weight model locally with \tool{Ollama}:
+      \begin{lstlisting}[language=bash, numbers=none]
+# install and pull
+ollama pull llama3.1:70b
+
+# run inference
+ollama run llama3.1:70b
+      \end{lstlisting}
+      \vspace{0.4em}
+      \begin{itemize}
+        \item \textbf{Use case:} sensitive data, airgapped environments, no API cost
+        \item Also: \tool{vLLM}, \tool{llama.cpp}, \tool{LM Studio}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Choosing a model — decision tree ----------------------
+\begin{frame}[shrink=15]{Choosing a Model for Your Task}
+  \centering
+  \scalebox{0.85}{%
+  \begin{tikzpicture}[
+    decision/.style={diamond, draw, fill=mLightBrown!20, aspect=2.5,
+                     align=center, font=\tiny, inner sep=1pt},
+    result/.style={draw, rounded corners=2pt, fill=blue!10,
+                   align=center, font=\tiny, minimum width=2.0cm,
+                   minimum height=0.6cm},
+    arr/.style={-{Stealth[length=4pt]}, thick},
+    lbl/.style={font=\tiny, midway},
+  ]
+    \node[decision] (q1) {Sensitive / private\\data?};
+    \node[result, left=1.6cm of q1]  (local) {Local open-weight\\\tool{Ollama}/\tool{vLLM}};
+    \node[decision, below=0.75cm of q1] (q2) {Needs long context\\(\textgreater 64K tokens)?};
+    \node[result, right=1.6cm of q2] (gemini) {\tool{Gemini 1.5 Pro}\\\tool{Claude} (200K)};
+    \node[decision, below=0.75cm of q2] (q3) {Multi-step reasoning\\ / formal proof?};
+    \node[result, right=1.6cm of q3] (reason) {\tool{o1}/\tool{o3}\\\tool{Claude + Ext. Think.}};
+    \node[decision, below=0.75cm of q3] (q4) {Cost-sensitive\\ or high volume?};
+    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini Flash}\\\tool{Claude Haiku}};
+    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Sonnet}\\\tool{GPT-4o} (general use)};
+
+    \draw[arr] (q1.west)  -- (local.east)   node[lbl, above]{Yes};
+    \draw[arr] (q1.south) -- (q2.north)     node[lbl, right]{No};
+    \draw[arr] (q2.east)  -- (gemini.west)  node[lbl, above]{Yes};
+    \draw[arr] (q2.south) -- (q3.north)     node[lbl, right]{No};
+    \draw[arr] (q3.east)  -- (reason.west)  node[lbl, above]{Yes};
+    \draw[arr] (q3.south) -- (q4.north)     node[lbl, right]{No};
+    \draw[arr] (q4.east)  -- (cheap.west)   node[lbl, above]{Yes};
+    \draw[arr] (q4.south) -- (general.north)node[lbl, right]{No};
+  \end{tikzpicture}}
+\end{frame}
+
+% ---- Demo placeholder -----------------------------------------------
+\demoframe{Side-by-side model comparison — same research prompt in Claude, GPT-4o, and Llama}

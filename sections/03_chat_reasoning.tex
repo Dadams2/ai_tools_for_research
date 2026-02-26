@@ -1,0 +1,170 @@
+% ============================================================
+%  Section 3: Chat and Reasoning Workflows for Research
+% ============================================================
+
+\section{Chat \& Reasoning Workflows}
+
+% ---- Research prompt loop ----------------------------------
+\begin{frame}{The Research Prompt Loop}
+  \centering
+  \begin{tikzpicture}[
+    node distance=1.5cm and 2.2cm,
+    box/.style={draw, rounded corners=4pt, minimum width=2.2cm,
+                minimum height=0.85cm, align=center, font=\small,
+                fill=mLightBrown!15},
+    arr/.style={-{Stealth[length=5pt]}, thick, mLightBrown},
+  ]
+    \node[box] (res)    {Researcher};
+    \node[box, right=of res] (prompt) {Prompt};
+    \node[box, right=of prompt] (model) {Model};
+    \node[box, below=of model] (output) {Response};
+    \node[box, left=of output] (refine) {Refine\\/ Critique};
+    \node[box, left=of refine] (insight) {Insight\\\& Action};
+
+    \draw[arr] (res.east)    -- (prompt.west);
+    \draw[arr] (prompt.east) -- (model.west);
+    \draw[arr] (model.south) -- (output.north);
+    \draw[arr] (output.west) -- (refine.east);
+    \draw[arr] (refine.west) -- (insight.east);
+    \draw[arr] (insight.north) |- (res.south);
+  \end{tikzpicture}
+
+  \vspace{0.7em}
+  \begin{itemize}
+    \item The loop is \textbf{iterative}: outputs inform the next prompt
+    \item Quality of prompting directly determines quality of outputs
+    \item Build a personal library of effective prompt patterns
+  \end{itemize}
+\end{frame}
+
+% ---- Daily research use cases ------------------------------
+\begin{frame}{Use Cases in Daily Research}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Paper comprehension}\\
+      \begin{itemize}
+        \item Paste abstract + intro, ask for ELI-researcher
+        \item ``What are the key assumptions?''
+        \item ``Compare to [prior work X]''
+        \item Identify methodological gaps
+      \end{itemize}
+      \vspace{0.6em}
+      \textbf{Counter-argument generation}\\
+      \begin{itemize}
+        \item ``Act as a skeptical reviewer. What are the three strongest objections to this claim?''
+        \item Stress-test your own hypotheses before submission
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Brainstorming}\\
+      \begin{itemize}
+        \item Hypothesis generation at low cost
+        \item Experiment design brainstorming
+        \item Related-work scoping
+      \end{itemize}
+      \vspace{0.6em}
+      \textbf{Sanity-checking}\\
+      \begin{itemize}
+        \item ``Does this derivation look correct?''
+        \item ``What edge cases am I missing?''
+        \item Quick literature cross-check (verify independently!)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Prompting patterns ------------------------------------
+\begin{frame}{Prompting Patterns That Work}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Role Prompting}
+        \small\textit{``You are an expert in [domain] with 20 years of experience. Review the following methodology and identify weaknesses.''}\\[0.2em]
+        Sets tone, terminology, and depth of response.
+      \end{block}
+      \vspace{0.4em}
+      \begin{block}{Decomposition}
+        \small\textit{``Break this problem into 3--5 independent subproblems. Solve each, then synthesize.''}\\[0.2em]
+        Reduces hallucination on complex tasks.~\parencite{wei2022cot}
+      \end{block}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Chain-of-Thought}
+        \small\textit{``Think step by step. Show your reasoning before giving the final answer.''}\\[0.2em]
+        Dramatically improves multi-step math and logic~\parencite{wei2022cot}.
+      \end{block}
+      \vspace{0.4em}
+      \begin{block}{Critique \& Revise}
+        \small\textit{``Here is a draft. Identify any factual errors, logical gaps, or unclear sections. Then produce a revised version.''}\\[0.2em]
+        Two-pass approach improves quality.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Reasoning models --------------------------------------
+\begin{frame}{Reasoning Models for Hard Problems}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{What makes them different}\\[0.3em]
+      \begin{itemize}
+        \item Internal ``thinking'' chain before the final answer
+        \item Optimized for multi-step inference, not raw speed
+        \item \model{o1} / \model{o3}: OpenAI's chain-of-thought-at-inference models
+        \item \model{claude-3.7-sonnet} extended thinking: configurable thinking budget
+        \item \model{deepseek-r1}: open-weight reasoning model with visible CoT
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{When to use them}\\[0.3em]
+      \begin{itemize}
+        \item Mathematical proofs and derivations
+        \item Algorithm design and complexity analysis
+        \item Debugging subtle logical errors
+        \item Multi-constraint optimization problems
+        \item Long-range planning tasks
+      \end{itemize}
+      \vspace{0.5em}
+      \alert{Cost:} Reasoning models are \textbf{3--10$\times$ more expensive} and slower. Use them selectively.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Context window as a research tool ---------------------
+\begin{frame}[shrink=8]{Context Window as a Research Tool}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{What large contexts enable}\\[0.3em]
+      \begin{itemize}
+        \item Paste entire papers (PDFs $\approx$ 8K--40K tokens)
+        \item Load full codebases into context
+        \item Multi-document synthesis and comparison
+        \item Long conversation history without truncation
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Current limits}\\[0.3em]
+      \begin{itemize}
+        \item GPT-4o: 128K tokens $\approx$ 4--5 long papers
+        \item Claude: 200K tokens $\approx$ 7--8 long papers
+        \item Gemini 1.5 Pro: 1M tokens $\approx$ a whole library section
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \begin{alertblock}{``Lost in the Middle''}
+        Models perform worse on information embedded in the \emph{middle} of very long contexts~\parencite{liu2023lostmiddle}.\\[0.5em]
+        \textbf{Mitigations:}
+        \begin{itemize}
+          \item Place critical information at \textbf{start or end}
+          \item Use retrieval-augmented approaches (RAG) for large corpora
+          \item Summarize or chunk when possible
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Demo placeholder -----------------------------------------------
+\demoframe{Iterative paper explanation \& hypothesis brainstorming — live with Claude}

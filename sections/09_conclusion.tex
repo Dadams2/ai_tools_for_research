@@ -1,0 +1,127 @@
+% ============================================================
+%  Section 9: Conclusion
+% ============================================================
+
+\section{Conclusion}
+
+% ---- Key takeaways ----------------------------------------
+\begin{frame}{Key Takeaways}
+  \begin{enumerate}
+    \item \textbf{Right tool for the task}: Inline completion, chat, and agentic tools serve different needs. Match capability to workflow rather than defaulting to one tool for everything.
+
+    \vspace{0.4em}
+    \item \textbf{Agentic oversight is mandatory}: Agents are powerful but unreliable on consequential, irreversible actions. Build in human checkpoints.
+
+    \vspace{0.4em}
+    \item \textbf{Literature tools amplify, don't replace}: Elicit, ResearchRabbit, and Semantic Scholar accelerate discovery; human judgment determines relevance and quality.
+
+    \vspace{0.4em}
+    \item \textbf{You remain the author}: AI writing assistance is legitimate; AI authorship is not. Use tools to improve your writing, not to replace your thinking.
+
+    \vspace{0.4em}
+    \item \textbf{Hallucination vigilance}: Verify every citation, every factual claim, every code snippet. Fluency is not correctness.
+  \end{enumerate}
+\end{frame}
+
+% ---- Researcher's heuristic --------------------------------
+\begin{frame}{A Researcher's Heuristic}
+  \centering
+  \begin{tikzpicture}[scale=0.95]
+    % Axes
+    \draw[-{Stealth[length=6pt]}, thick] (-0.3,0) -- (8.3,0)
+      node[right, font=\small] {Task complexity $\rightarrow$};
+    \draw[-{Stealth[length=6pt]}, thick] (0,-0.3) -- (0,5.8)
+      node[above, font=\small] {Data sensitivity $\uparrow$};
+
+    % Quadrant boxes
+    \fill[blue!10]   (0.1,0.1) rectangle (4.0,2.8);
+    \fill[green!10]  (4.1,0.1) rectangle (8.0,2.8);
+    \fill[orange!15] (0.1,2.9) rectangle (4.0,5.6);
+    \fill[red!10]    (4.1,2.9) rectangle (8.0,5.6);
+
+    % Quadrant labels
+    \node[align=center, font=\small] at (2.0, 1.6)
+      {\textbf{Low sensitivity,}\\Low complexity:\\\tool{Claude} / \tool{GPT-4o}\\Chat};
+    \node[align=center, font=\small] at (6.0, 1.6)
+      {\textbf{Low sensitivity,}\\High complexity:\\\tool{Claude Code} /\\Agentic workflow};
+    \node[align=center, font=\small] at (2.0, 4.2)
+      {\textbf{High sensitivity,}\\Low complexity:\\Local \tool{Ollama}\\(small model)};
+    \node[align=center, font=\small] at (6.0, 4.2)
+      {\textbf{High sensitivity,}\\High complexity:\\Local \tool{vLLM}\\(70B+ model)};
+
+    % Midlines
+    \draw[dashed, gray] (4.0, 0) -- (4.0, 5.8);
+    \draw[dashed, gray] (0, 2.8) -- (8.0, 2.8);
+  \end{tikzpicture}
+\end{frame}
+
+% ---- Resources --------------------------------------------
+\begin{frame}{Resources \& Further Reading}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Model documentation}\\[0.2em]
+      \begin{itemize}
+        \item Anthropic Claude docs: \href{https://docs.anthropic.com}{docs.anthropic.com}
+        \item OpenAI: \href{https://platform.openai.com/docs}{platform.openai.com/docs}
+        \item Hugging Face model hub: \href{https://huggingface.co/models}{huggingface.co/models}
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Key papers}\\[0.2em]
+      \begin{itemize}
+        \item ReAct: \parencite{yao2023react}
+        \item Chain-of-Thought: \parencite{wei2022cot}
+        \item SWE-Bench: \parencite{jimenez2024swebench}
+        \item Foundation Model risks: \parencite{bommasani2021foundation}
+        \item Hallucination survey: \parencite{huang2023hallucination}
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Tools covered today}\\[0.2em]
+      \begin{itemize}
+        \item MCP spec: \href{https://modelcontextprotocol.io}{modelcontextprotocol.io}
+        \item Claude Code: \href{https://claude.ai/code}{claude.ai/code}
+        \item Elicit: \href{https://elicit.com}{elicit.com}
+        \item ResearchRabbit: \href{https://www.researchrabbit.ai}{researchrabbit.ai}
+        \item Semantic Scholar API: \href{https://api.semanticscholar.org}{api.semanticscholar.org}
+        \item Ollama: \href{https://ollama.ai}{ollama.ai}
+      \end{itemize}
+      \vspace{0.4em}
+      \centering
+      \qrcode[height=1.2cm]{https://github.com/your-repo/ai-tools-for-research}\\
+      \tiny Slides repository
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Call to action ----------------------------------------
+\begin{frame}{Three Concrete Next Steps}
+  \begin{enumerate}
+    \item \textbf{Today:} Install \tool{Claude Code} or \tool{Cursor} and use it for your next coding task. Pay attention to where it helps and where it errs.
+
+    \vspace{0.6em}
+    \item \textbf{This week:} Set up a \tool{ResearchRabbit} collection with 3 seed papers from your current project. Explore what it surfaces.
+
+    \vspace{0.6em}
+    \item \textbf{This month:} For your next paper submission, draft one section with AI assistance. Document your process — what prompts you used, what you changed, what you verified.
+  \end{enumerate}
+
+  \vspace{0.8em}
+  \begin{center}
+    \small\textit{The goal is not to use AI everywhere. It is to use it \textbf{deliberately} where it genuinely accelerates your research.}
+  \end{center}
+\end{frame}
+
+% ---- Questions slide ----------------------------------------
+\begin{frame}[standout]
+  \Large Questions \& Discussion
+
+  \vspace{1.5em}
+  \normalsize
+  David Adams\\
+  \href{mailto:david.adams1@student.unimelb.edu.au}{david.adams1@student.unimelb.edu.au}
+
+  \vspace{1.2em}
+  \qrcode[height=1.5cm]{https://github.com/dadams2/ai_tools_for_research}\\[0.4em]
+  \small Slides available at the link above
+\end{frame}

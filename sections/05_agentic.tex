@@ -1,0 +1,232 @@
+% ============================================================
+%  Section 5: Agentic Workflows
+% ============================================================
+
+\section{Agentic Workflows}
+
+% ---- What is an agent? ------------------------------------
+\begin{frame}{What Is an Agent?}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.50\textwidth}
+      \textbf{Definition}\\[0.3em]
+      An \textbf{agent} is an LLM that can:
+      \begin{enumerate}
+        \item \textbf{Observe} its environment (context, tool outputs)
+        \item \textbf{Plan} a sequence of actions
+        \item \textbf{Act} by invoking tools
+        \item \textbf{Iterate} until the goal is reached
+      \end{enumerate}
+      \vspace{0.5em}
+      This is the \textbf{ReAct} framework~\parencite{yao2023react}: interleaving \emph{reasoning} and \emph{action}.
+    \end{column}
+    \hfill
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        node distance=0.9cm,
+        box/.style={draw, rounded corners=3pt, fill=mLightBrown!15,
+                    minimum width=2.0cm, minimum height=0.7cm,
+                    align=center, font=\small},
+        arr/.style={-{Stealth[length=4pt]}, thick, mLightBrown},
+      ]
+        \node[box] (obs)  {Observe};
+        \node[box, below=of obs]  (plan) {Plan};
+        \node[box, below=of plan] (act)  {Act};
+        \node[box, below=of act]  (tool) {Tools\\(search, code, file)};
+        \node[box, below=of tool] (eval) {Evaluate\\output};
+
+        \draw[arr] (obs.south)  -- (plan.north);
+        \draw[arr] (plan.south) -- (act.north);
+        \draw[arr] (act.south)  -- (tool.north);
+        \draw[arr] (tool.south) -- (eval.north);
+        \draw[arr] (eval.east)  -- ++(0.8,0) |- (obs.east)
+          node[pos=0.15, right, font=\tiny]{loop};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Tool use — building block ----------------------------
+\begin{frame}[fragile]{Tool Use — The Building Block}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Mechanism}\\[0.3em]
+      \begin{itemize}
+        \item Model receives a list of available tools as JSON schemas
+        \item Model outputs a structured tool-call instead of plain text
+        \item Host executes the call, returns results to the model
+        \item Model continues reasoning with the result~\parencite{schick2023toolformer}
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Common research tools}\\[0.3em]
+      \begin{itemize}
+        \item \texttt{search\_arxiv(query)} — fetch paper metadata
+        \item \texttt{execute\_python(code)} — run analysis code
+        \item \texttt{read\_file(path)} / \texttt{write\_file(path, content)}
+        \item \texttt{run\_shell(cmd)} — arbitrary commands
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Tool schema example}\\[0.3em]
+      \begin{lstlisting}[language=json, numbers=none, basicstyle=\ttfamily\scriptsize]
+{
+  "name": "search_arxiv",
+  "description": "Search arXiv for papers",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Search query"
+      },
+      "max_results": {
+        "type": "integer",
+        "default": 5
+      }
+    },
+    "required": ["query"]
+  }
+}
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Model Context Protocol --------------------------------
+\begin{frame}[shrink=18]{Model Context Protocol (MCP)}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{What is MCP?}~\parencite{anthropic2024mcp}\\[0.3em]
+      \begin{itemize}
+        \item Open standard for LLM $\leftrightarrow$ external resource connectivity
+        \item Proposed by Anthropic; adopted by multiple vendors
+        \item Decouples the \emph{host} (LLM application) from \emph{servers} (data/tool providers)
+        \item Communication via JSON-RPC 2.0 over stdio or SSE
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Servers expose three primitives}\\[0.3em]
+      \begin{itemize}
+        \item \textbf{Resources}: data the model can read (files, DBs)
+        \item \textbf{Tools}: functions the model can call
+        \item \textbf{Prompts}: reusable prompt templates
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[
+        node distance=0.8cm and 1.2cm,
+        box/.style={draw, rounded corners=2pt, minimum width=2.2cm,
+                    minimum height=0.65cm, align=center, font=\tiny},
+        arr/.style={-{Stealth[length=4pt]}, thick},
+      ]
+        \node[box, fill=mLightBrown!20] (host)   {LLM Host\\(Claude Code)};
+        \node[box, fill=blue!15, below=of host]   (client) {MCP Client};
+        \node[box, fill=green!15, below=of client](server) {MCP Server};
+        \node[box, fill=gray!15, below left=0.5cm and -0.4cm of server]  (r1) {Resources};
+        \node[box, fill=gray!15, below=0.5cm of server]                  (r2) {Tools};
+        \node[box, fill=gray!15, below right=0.5cm and -0.4cm of server] (r3) {Prompts};
+
+        \draw[arr, <->] (host.south)   -- (client.north) node[midway,right,font=\tiny]{};
+        \draw[arr, <->] (client.south) -- (server.north) node[midway,right,font=\tiny]{JSON-RPC};
+        \draw[arr] (server.south west) -- (r1.north);
+        \draw[arr] (server.south)      -- (r2.north);
+        \draw[arr] (server.south east) -- (r3.north);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Research applications ---------------------------------
+\begin{frame}{Research Applications of Agents}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Literature Sweeps}
+        Agent queries arXiv/Semantic Scholar, filters by relevance score, downloads PDFs, extracts structured information, and produces a synthesis report.
+      \end{block}
+      \vspace{0.4em}
+      \begin{block}{Experiment Orchestration}
+        Agent reads experiment config, modifies hyperparameters, launches training runs (via \texttt{subprocess}), monitors logs, and emails results.
+      \end{block}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Data Pipeline}
+        Agent writes a preprocessing script, validates outputs, generates summary statistics, and flags anomalies for human review.
+      \end{block}
+      \vspace{0.4em}
+      \begin{block}{Report Generation}
+        Agent reads experiment results, produces tables and figures (matplotlib), and writes a draft results section in LaTeX.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Multi-agent patterns ----------------------------------
+\begin{frame}{Multi-Agent Patterns}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.50\textwidth}
+      \textbf{Orchestrator + Subagents}\\[0.3em]
+      \begin{tikzpicture}[
+        node distance=0.6cm and 1.2cm,
+        box/.style={draw, rounded corners=2pt, minimum width=1.8cm,
+                    minimum height=0.6cm, align=center, font=\tiny,
+                    fill=mLightBrown!15},
+        arr/.style={-{Stealth[length=4pt]}, thick},
+      ]
+        \node[box] (orch) {Orchestrator LLM};
+        \node[box, below left=0.6cm and 0.3cm of orch]  (s1) {Search\\Agent};
+        \node[box, below=0.6cm of orch]                  (s2) {Code\\Agent};
+        \node[box, below right=0.6cm and 0.3cm of orch] (s3) {Write\\Agent};
+        \draw[arr] (orch.south west) -- (s1.north);
+        \draw[arr] (orch.south)      -- (s2.north);
+        \draw[arr] (orch.south east) -- (s3.north);
+        \draw[arr, dashed] (s1.north) -- (orch.south west);
+        \draw[arr, dashed] (s2.north) -- (orch.south);
+        \draw[arr, dashed] (s3.north) -- (orch.south east);
+      \end{tikzpicture}
+    \end{column}
+    \hfill
+    \begin{column}{0.46\textwidth}
+      \textbf{Parallel Subagents}\\[0.3em]
+      \begin{itemize}
+        \item Independent tasks run concurrently
+        \item Orchestrator merges results
+        \item Reduces total wall-clock time
+        \item Example: 10 papers analyzed in parallel
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Reference}\\
+      \parencite{wang2024survey}: survey of LLM-based autonomous agents and multi-agent architectures.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Current limitations -----------------------------------
+\begin{frame}{Current Limitations}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Reliability issues}
+        \begin{itemize}
+          \item \textbf{Error propagation}: mistakes in early steps compound; agents rarely self-correct without human intervention
+          \item \textbf{Cost}: multi-step agents consume many tokens; long tasks can be expensive
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Verification gaps}
+        \begin{itemize}
+          \item \textbf{Verification}: agents cannot always verify their own outputs; scientific claims must be checked
+          \item \textbf{Human-in-the-loop}: for consequential actions (delete files, push to git, email), always require explicit approval
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  \vspace{0.6em}
+  \textbf{Best practice:} Use agents for \emph{reversible, low-stakes} tasks. Build in checkpoints for irreversible actions.
+\end{frame}
+
+% ---- Demo placeholder -----------------------------------------------
+\demoframe{Agentic workflow — arXiv paper search + structured summary via MCP tools}

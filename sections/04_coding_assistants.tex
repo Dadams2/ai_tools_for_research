@@ -1,0 +1,209 @@
+% ============================================================
+%  Section 4: Coding Assistants in Research
+% ============================================================
+
+\section{Coding Assistants in Research}
+
+% ---- Why it matters ----------------------------------------
+\begin{frame}[shrink=10]{Why Coding Assistance Matters for Researchers}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Researcher reality}\\[0.3em]
+      \begin{itemize}
+        \item Most CS/AI researchers write code daily
+        \item Codebases are often solo or small-team maintained
+        \item Prototype speed $\Rightarrow$ experiment iteration rate
+        \item Debugging detracts from research thinking
+        \item Large inherited codebases are hard to onboard
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{What AI assistance changes}\\[0.3em]
+      \begin{itemize}
+        \item Baseline implementations in hours, not days
+        \item Explain unfamiliar library APIs instantly
+        \item Auto-generate boilerplate (data loaders, eval loops)
+        \item Catch bugs via conversational debugging
+        \item Translate pseudocode $\to$ runnable code
+      \end{itemize}
+      \vspace{0.5em}
+      \parencite{dakhel2023copilot}: Copilot reduces time-to-completion but requires careful review of generated code.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Spotlight: GitHub Copilot ------------------------------
+\begin{frame}[shrink=10]{Spotlight: \tool{GitHub Copilot}}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Core capabilities}\\[0.3em]
+      \begin{itemize}
+        \item Inline code completion (tab to accept)
+        \item Copilot Chat: explain, fix, test generation
+        \item PR summarization and code review
+        \item Agents mode (multi-file edits)
+        \item Available in VS Code, JetBrains, Vim/Neovim
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Research use cases}\\[0.3em]
+      \begin{itemize}
+        \item Fast boilerplate: PyTorch training loops, HuggingFace pipelines
+        \item Unit test generation for research code
+        \item Documentation of legacy research repos
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{Strengths}\\
+      \begin{itemize}
+        \item Tightly integrated; near-zero context switching
+        \item Large training corpus — knows most popular libraries
+        \item Enterprise tier with IP indemnification
+      \end{itemize}
+      \vspace{0.5em}
+      \textbf{Limitations}\\
+      \begin{itemize}
+        \item Code sent to GitHub servers
+        \item Weaker at novel algorithms (not in training data)
+        \item Suggestions can be plausible but subtly wrong~\parencite{barke2023grounded}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Spotlight: Cursor -------------------------------------
+\begin{frame}{Spotlight: \tool{Cursor}}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Key features}\\[0.3em]
+      \begin{itemize}
+        \item \textbf{Composer} (Agent mode): multi-file edits from a single prompt
+        \item \textbf{Codebase indexing}: semantic search over entire repo
+        \item \textbf{@-mentions}: reference specific files, docs, web in prompts
+        \item Supports multiple backends: Claude, GPT-4o, local
+        \item VS Code fork — full extension compatibility
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Research use cases}\\[0.3em]
+      \begin{itemize}
+        \item ``Implement Algorithm 2 from the attached paper''
+        \item Refactor a training script across 10 files
+        \item Ask questions about a large inherited codebase
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \small
+      \textbf{Strengths}\\
+      \begin{itemize}
+        \item Best-in-class multi-file editing UX
+        \item Codebase context without manual copy-paste
+        \item Rapid iteration for exploratory coding
+      \end{itemize}
+      \vspace{0.2em}
+      \begin{alertblock}{Privacy note}
+        Code is sent to Cursor's servers (and upstream providers). For sensitive IP or proprietary data, check your institution's policy or use Privacy Mode.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Spotlight: Claude Code --------------------------------
+\begin{frame}[fragile, shrink=15]{Spotlight: \tool{Claude Code}}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Architecture}\\[0.3em]
+      \begin{itemize}
+        \item Terminal-native agentic coding assistant
+        \item Full file read/write, shell command execution
+        \item Git-aware: diffs, commits, branch management
+        \item \textbf{CLAUDE.md}: project-level instructions and context
+        \item Extended thinking: configurable reasoning budget
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Research use cases}\\[0.3em]
+      \begin{itemize}
+        \item ``Implement this baseline end-to-end from the paper''
+        \item Automated experiment script generation
+        \item Data preprocessing pipeline construction
+        \item Generate and run unit tests on research code
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \small
+      \textbf{Distinctive features}\\[0.2em]
+      \begin{itemize}
+        \item Works in the terminal — no IDE lock-in
+        \item Reads entire codebases before acting
+        \item Interruptible mid-task
+        \item IDE integrations: VS Code, JetBrains
+      \end{itemize}
+      \vspace{0.2em}
+      \begin{lstlisting}[language=bash, numbers=none]
+# Install
+npm install -g @anthropic-ai/claude-code
+
+# Run in your research repo
+cd my-research-project
+claude
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Spotlight: Cody / Aider -------------------------------
+\begin{frame}[fragile]{Spotlight: \tool{Cody} \& \tool{Aider}}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{\tool{Cody} (Sourcegraph)}
+        \begin{itemize}
+          \item Open-source, model-agnostic
+          \item Indexes large codebases (millions of lines)
+          \item \textbf{Best for:} navigating large inherited research frameworks (e.g., Fairseq, Megatron-LM)
+          \item Supports Claude, GPT-4o, local models
+          \item IDE plugins: VS Code, JetBrains
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{block}{\tool{Aider}}
+        \begin{itemize}
+          \item Git-native CLI coding assistant
+          \item Maps entire repo before editing
+          \item Commits changes automatically with meaningful messages
+          \item Supports 100+ LLMs via litellm
+          \item \textbf{Best for:} power users comfortable in the terminal
+        \end{itemize}
+        \begin{lstlisting}[language=bash, numbers=none]
+pip install aider-chat
+aider --model claude-3-5-sonnet
+        \end{lstlisting}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Comparison matrix -------------------------------------
+\begin{frame}{Coding Assistant Comparison}
+  \small
+  \begin{tabularx}{\textwidth}{lYYYY}
+    \toprule
+    \textbf{Tool} & \textbf{Agentic} & \textbf{Open source} & \textbf{Multi-file} & \textbf{Best for researchers} \\
+    \midrule
+    \tool{Copilot}      & Partial & No  & Partial & Fast inline completion \\
+    \tool{Cursor}       & Yes     & No  & Yes     & GUI-based multi-file edits \\
+    \tool{Claude Code}  & Yes     & No  & Yes     & Terminal, end-to-end tasks \\
+    \tool{Cody}         & Partial & Yes & Yes     & Large inherited codebases \\
+    \tool{Aider}        & Yes     & Yes & Yes     & Git-native CLI power users \\
+    \tool{Continue}     & Partial & Yes & Partial & Model-agnostic IDE plugin \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.5em}
+  \small \alert{No single winner} — the right tool depends on your workflow, IDE preference, and data-sensitivity requirements.
+\end{frame}
+
+% ---- Demo placeholder -----------------------------------------------
+\demoframe{Claude Code — implementing a research baseline from scratch, end-to-end}

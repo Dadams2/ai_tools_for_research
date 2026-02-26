@@ -1,0 +1,247 @@
+% ============================================================
+%  main.tex  —  AI Tools for Research
+%  Metropolis Beamer Presentation
+%  Compile with: latexmk  (see latexmkrc)
+% ============================================================
+
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% ---------- Theme -------------------------------------------
+\usetheme[progressbar=frametitle, block=fill, numbering=fraction]{metropolis}
+
+% ---------- Fonts -------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{FiraSans}
+\usepackage{FiraMono}
+
+% ---------- Math --------------------------------------------
+\usepackage{amsmath, amssymb, mathtools}
+
+% ---------- Code listings -----------------------------------
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  breakatwhitespace=true,
+  keywordstyle=\color{mLightBrown}\bfseries,
+  commentstyle=\color{mDarkTeal}\itshape,
+  stringstyle=\color{mLightGreen},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  frame=single,
+  framerule=0.4pt,
+  framesep=3pt,
+  xleftmargin=12pt,
+  xrightmargin=4pt,
+  showstringspaces=false,
+  tabsize=2,
+}
+\lstdefinelanguage{json}{
+  morestring=[b]",
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morekeywords={true,false,null},
+  sensitive=false,
+}
+\lstdefinelanguage{python}{
+  keywords={def,class,import,from,return,if,else,elif,for,while,
+            in,not,and,or,True,False,None,with,as,try,except,raise,
+            lambda,yield,pass,break,continue},
+  morestring=[b]",
+  morestring=[b]',
+  morecomment=[l]{\#},
+  sensitive=true,
+}
+\lstdefinelanguage{bash}{
+  keywords={ls,cd,mkdir,cp,mv,rm,echo,cat,grep,find,make,git,
+            pip,python,conda,curl,wget},
+  morecomment=[l]{\#},
+  morestring=[b]",
+  morestring=[b]',
+  sensitive=false,
+}
+
+% ---------- TikZ / pgfplots --------------------------------
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit,
+                backgrounds, calc, decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ---------- Tables -----------------------------------------
+\usepackage{booktabs, tabularx, multirow, colortbl}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% ---------- Graphics ---------------------------------------
+\usepackage{graphicx}
+
+% ---------- Bibliography -----------------------------------
+\usepackage[backend=biber, style=authoryear-comp, maxcitenames=2,
+            uniquelist=false, uniquename=false]{biblatex}
+\addbibresource{refs.bib}
+
+% ---------- Utilities --------------------------------------
+\usepackage{appendixnumberbeamer}
+\usepackage{qrcode}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=., urlcolor=mLightBrown}
+
+% ---------- Custom commands --------------------------------
+% Note: mLightBrown, mDarkTeal, mLightGreen are defined by metropolis theme
+\newcommand{\tool}[1]{\textbf{\textcolor{mLightBrown}{#1}}}
+\newcommand{\model}[1]{\texttt{#1}}
+
+% Demo placeholder: standout frame with large "DEMO" label
+\newcommand{\demoframe}[1]{%
+  \begin{frame}[standout]
+    \Huge $\blacktriangleright$\\[0.5em]
+    {\large\textsc{Live Demo}}\\[1em]
+    \normalsize #1
+  \end{frame}%
+}
+
+% ---------- Metadata ---------------------------------------
+\title{AI Tools for Research}
+\subtitle{A Practical Guide for CS/AI Researchers}
+\author{%
+  David Adams\\
+  \small\href{mailto:david.adams1@student.unimelb.edu.au}{david.adams1@student.unimelb.edu.au}%
+}
+\institute{FEIT \\ The University of Melbourne}
+\date{\today}
+
+% ============================================================
+\begin{document}
+% ============================================================
+
+\maketitle
+
+% ---- About This Talk --------------------------------------
+\begin{frame}[shrink=5]{About This Talk}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{What we cover}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item AI in software development broadly
+        \item The frontier model landscape
+        \item Chat \& reasoning workflows
+        \item Coding assistants for researchers
+        \item Agentic \& MCP pipelines
+        \item Literature discovery tools
+        \item Writing assistance
+        \item Caveats, ethics, best practices
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{What we do \emph{not} cover}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item Model internals / training details
+        \item Fine-tuning or RLHF
+        \item Deployment / MLOps
+        \item Robotics / embodied AI
+        \item A comprehensive product review (landscape moves fast)
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Format:} Talk + live demos\\
+      \textbf{Slides:} Posted after the talk
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Table of Contents ------------------------------------
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+% ===========================================================
+%  Sections
+% ===========================================================
+\input{sections/01_software_dev}
+\input{sections/02_model_landscape}
+\input{sections/03_chat_reasoning}
+\input{sections/04_coding_assistants}
+\input{sections/05_agentic}
+\input{sections/06_literature}
+\input{sections/07_writing}
+\input{sections/08_caveats}
+\input{sections/09_conclusion}
+
+% ===========================================================
+%  Appendix
+% ===========================================================
+\appendix
+
+\begin{frame}{Appendix: Detailed Model Comparison}
+  \small
+  \begin{tabularx}{\textwidth}{lYYYY}
+    \toprule
+    \textbf{Model} & \textbf{Context} & \textbf{Multimodal} & \textbf{API} & \textbf{Open weight} \\
+    \midrule
+    \model{claude-opus-4} & 200K & Vision & Yes & No \\
+    \model{gpt-4o}        & 128K & Vision+Audio & Yes & No \\
+    \model{gemini-1.5-pro} & 1M  & Vision+Audio & Yes & No \\
+    \model{llama-3.1-405b} & 128K & Text & Via providers & Yes \\
+    \model{mistral-large}  & 128K & Text & Yes & Partial \\
+    \model{qwen2.5-72b}    & 128K & Vision & Via providers & Yes \\
+    \model{deepseek-r1}    & 64K & Text & Yes & Yes \\
+    \model{gemma-2-27b}    & 8K  & Text & Via providers & Yes \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
+\begin{frame}{Appendix: Prompt Engineering Reference}
+  \small
+  \begin{tabularx}{\textwidth}{lX}
+    \toprule
+    \textbf{Pattern} & \textbf{Template} \\
+    \midrule
+    Role prompt & \textit{``You are an expert in [domain]. [Task]''} \\
+    Chain-of-thought & \textit{``Think step by step. [Problem]''} \\
+    Few-shot & Provide 2--3 examples before the target \\
+    Critique \& revise & \textit{``Review your answer for errors, then revise.''} \\
+    Decompose & \textit{``Break [task] into subtasks, then solve each.''} \\
+    Persona constraint & \textit{``Respond as a skeptical peer reviewer.''} \\
+    Format specification & \textit{``Output a JSON object with keys: \ldots''} \\
+    Context injection & Paste full paper / code before asking questions \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
+\begin{frame}{Appendix: MCP Architecture Deep-Dive}
+  \centering
+  \begin{tikzpicture}[
+    node distance=1.2cm and 2cm,
+    box/.style={draw, rounded corners=3pt, minimum width=2.6cm,
+                minimum height=0.8cm, align=center, font=\small},
+    arr/.style={-{Stealth[length=5pt]}, thick},
+  ]
+    \node[box, fill=mLightBrown!20] (host)   {Host Application\\(Claude Code)};
+    \node[box, fill=blue!15, right=of host]  (client) {MCP Client};
+    \node[box, fill=green!15, right=of client](server) {MCP Server};
+    \node[box, fill=gray!15, above right=0.6cm and 0.3cm of server] (res1) {Resources};
+    \node[box, fill=gray!15, right=0.3cm of server]                 (res2) {Tools};
+    \node[box, fill=gray!15, below right=0.6cm and 0.3cm of server] (res3) {Prompts};
+
+    \draw[arr] (host.east)   -- (client.west)  node[midway, above, font=\tiny]{JSON-RPC 2.0};
+    \draw[arr] (client.east) -- (server.west)  node[midway, above, font=\tiny]{stdio/SSE};
+    \draw[arr] (server.north east) -- (res1.west);
+    \draw[arr] (server.east)       -- (res2.west);
+    \draw[arr] (server.south east) -- (res3.west);
+    \draw[arr, dashed] (res1.west) -- (server.north east);
+    \draw[arr, dashed] (res2.west) -- (server.east);
+    \draw[arr, dashed] (res3.west) -- (server.south east);
+  \end{tikzpicture}
+
+  \vspace{0.5em}
+  \small Servers expose \emph{resources} (data), \emph{tools} (actions), and \emph{prompts} (templates).\\
+  Clients \& servers communicate over JSON-RPC 2.0 via stdio or SSE transport.
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+  \printbibliography[heading=none]
+\end{frame}
+
+\end{document}
