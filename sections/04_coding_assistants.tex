@@ -44,6 +44,7 @@
         \item PR summarization and code review
         \item Agents mode (multi-file edits)
         \item Available in VS Code, JetBrains, Vim/Neovim
+        \item \textbf{Copilot Workspace}: full agentic environment
       \end{itemize}
       \vspace{0.5em}
       \textbf{Research use cases}\\[0.3em]
@@ -62,11 +63,11 @@
         \item Enterprise tier with IP indemnification
       \end{itemize}
       \vspace{0.5em}
-      \textbf{Limitations}\\
+      \textbf{Pricing (2026)}\\
       \begin{itemize}
-        \item Code sent to GitHub servers
-        \item Weaker at novel algorithms (not in training data)
-        \item Suggestions can be plausible but subtly wrong~\parencite{barke2023grounded}
+        \item Free tier: 2{,}000 completions + 50 chat msgs/month
+        \item Copilot Pro: \$10/mo (unlimited completions)
+        \item Copilot Pro+/Business: \$21/mo (1{,}500 premium requests)
       \end{itemize}
     \end{column}
   \end{columns}
@@ -79,9 +80,10 @@
       \textbf{Key features}\\[0.3em]
       \begin{itemize}
         \item \textbf{Composer} (Agent mode): multi-file edits from a single prompt
+        \item \textbf{Cloud Agents}: run code, generate merge-ready PRs with video logs
         \item \textbf{Codebase indexing}: semantic search over entire repo
         \item \textbf{@-mentions}: reference specific files, docs, web in prompts
-        \item Supports multiple backends: Claude, GPT-4o, local
+        \item Supports multiple backends: Claude 4.6, GPT-5.3-Codex, local
         \item VS Code fork — full extension compatibility
       \end{itemize}
       \vspace{0.4em}
@@ -90,6 +92,7 @@
         \item ``Implement Algorithm 2 from the attached paper''
         \item Refactor a training script across 10 files
         \item Ask questions about a large inherited codebase
+        \item \textbf{OpenCode}: open-source terminal/IDE/desktop agent (100k+ stars, 2.5M devs/month)
       \end{itemize}
     \end{column}
     \hfill
@@ -153,17 +156,19 @@ claude
   \end{columns}
 \end{frame}
 
-% ---- Spotlight: Cody / Aider -------------------------------
-\begin{frame}[fragile]{Spotlight: \tool{Cody} \& \tool{Aider}}
+% ---- Spotlight: OpenCode / Aider -------------------------------
+\begin{frame}[fragile]{Spotlight: \tool{OpenCode} \& \tool{Aider}}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.48\textwidth}
-      \begin{block}{\tool{Cody} (Sourcegraph)}
+      \begin{block}{\tool{OpenCode}}
         \begin{itemize}
-          \item Open-source, model-agnostic
-          \item Indexes large codebases (millions of lines)
-          \item \textbf{Best for:} navigating large inherited research frameworks (e.g., Fairseq, Megatron-LM)
-          \item Supports Claude, GPT-4o, local models
-          \item IDE plugins: VS Code, JetBrains
+          \item Open-source agent for terminal, IDE, or desktop
+          \item LSP-enabled: automatically loads the right LSPs for the LLM
+          \item Multi-session: run multiple agents in parallel on the same project
+          \item 75+ LLM providers via Models.dev (incl.\ local models)
+          \item Log in with GitHub Copilot or ChatGPT Plus/Pro accounts
+          \item 100{,}000+ GitHub stars; trusted by 2.5M developers/month
+          \item \textbf{Best for:} open, flexible agentic coding across any editor or workflow
         \end{itemize}
       \end{block}
     \end{column}
@@ -179,7 +184,7 @@ claude
         \end{itemize}
         \begin{lstlisting}[language=bash, numbers=none]
 pip install aider-chat
-aider --model claude-3-5-sonnet
+aider --model claude-sonnet-4-6
         \end{lstlisting}
       \end{block}
     \end{column}
@@ -193,12 +198,13 @@ aider --model claude-3-5-sonnet
     \toprule
     \textbf{Tool} & \textbf{Agentic} & \textbf{Open source} & \textbf{Multi-file} & \textbf{Best for researchers} \\
     \midrule
-    \tool{Copilot}      & Partial & No  & Partial & Fast inline completion \\
-    \tool{Cursor}       & Yes     & No  & Yes     & GUI-based multi-file edits \\
-    \tool{Claude Code}  & Yes     & No  & Yes     & Terminal, end-to-end tasks \\
-    \tool{Cody}         & Partial & Yes & Yes     & Large inherited codebases \\
-    \tool{Aider}        & Yes     & Yes & Yes     & Git-native CLI power users \\
-    \tool{Continue}     & Partial & Yes & Partial & Model-agnostic IDE plugin \\
+    \tool{Copilot}             & Partial & No  & Partial & Fast inline completion \\
+    \tool{Cursor}              & Yes     & No  & Yes     & GUI-based multi-file edits \\
+    \tool{Claude Code}         & Yes     & No  & Yes     & Terminal, end-to-end tasks \\
+    \tool{GPT-5.3-Codex}       & Yes     & No  & Yes     & Agentic; mid-task steering, 25\% faster \\
+    \tool{Aider}               & Yes     & Yes & Yes     & Git-native CLI power users \\
+    \tool{Continue}            & Partial & Yes & Partial & Model-agnostic IDE plugin \\
+    \tool{OpenCode}            & Yes     & Yes & Yes     & Terminal/IDE/desktop; 75+ LLM providers \\
     \bottomrule
   \end{tabularx}
   \vspace{0.5em}
@@ -206,4 +212,4 @@ aider --model claude-3-5-sonnet
 \end{frame}
 
 % ---- Demo placeholder -----------------------------------------------
-\demoframe{Claude Code — implementing a research baseline from scratch, end-to-end}
+\demoframe{Claude Code / OpenCode — implementing a research baseline from scratch, end-to-end}

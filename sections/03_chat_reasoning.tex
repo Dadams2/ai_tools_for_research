@@ -90,9 +90,9 @@
     \end{column}
     \hfill
     \begin{column}{0.48\textwidth}
-      \begin{block}{Chain-of-Thought}
+      \begin{block}{Reasoning Models}
         \small\textit{``Think step by step. Show your reasoning before giving the final answer.''}\\[0.2em]
-        Dramatically improves multi-step math and logic~\parencite{wei2022cot}.
+        Dramatically improves multi-step math and logic~\parencite{wei2022cot}. Models like \model{o3}, \model{gpt-5.3-codex}, and \model{claude-opus-4-6} do this natively.
       \end{block}
       \vspace{0.4em}
       \begin{block}{Critique \& Revise}
@@ -111,9 +111,9 @@
       \begin{itemize}
         \item Internal ``thinking'' chain before the final answer
         \item Optimized for multi-step inference, not raw speed
-        \item \model{o1} / \model{o3}: OpenAI's chain-of-thought-at-inference models
-        \item \model{claude-3.7-sonnet} extended thinking: configurable thinking budget
-        \item \model{deepseek-r1}: open-weight reasoning model with visible CoT
+        \item \model{o3} / \model{gpt-5.3-codex}: OpenAI's reasoning and agentic coding models
+        \item \model{claude-opus-4-6} extended thinking: configurable thinking budget
+        \item \model{deepseek-v3.2}: open-weight reasoning model with competitive CoT
       \end{itemize}
     \end{column}
     \hfill
@@ -146,9 +146,9 @@
       \vspace{0.5em}
       \textbf{Current limits}\\[0.3em]
       \begin{itemize}
-        \item GPT-4o: 128K tokens $\approx$ 4--5 long papers
-        \item Claude: 200K tokens $\approx$ 7--8 long papers
-        \item Gemini 1.5 Pro: 1M tokens $\approx$ a whole library section
+        \item GPT-5 / GPT-5.3-Codex: 400K tokens $\approx$ 13--15 long papers
+        \item Claude 4.6 Sonnet: 200K tokens (1M beta) $\approx$ 7--8 long papers
+        \item Gemini 3.1 Pro: 1M tokens $\approx$ a whole library section
       \end{itemize}
     \end{column}
     \hfill

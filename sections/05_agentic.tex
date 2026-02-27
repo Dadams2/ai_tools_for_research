@@ -64,6 +64,8 @@
         \item \texttt{execute\_python(code)} — run analysis code
         \item \texttt{read\_file(path)} / \texttt{write\_file(path, content)}
         \item \texttt{run\_shell(cmd)} — arbitrary commands
+        \item \texttt{mcp\_server} — connect to external tools
+        \item \textbf{Google Antigravity} — agentic dev platform (IDE)
       \end{itemize}
     \end{column}
     \hfill
@@ -100,9 +102,10 @@
       \textbf{What is MCP?}~\parencite{anthropic2024mcp}\\[0.3em]
       \begin{itemize}
         \item Open standard for LLM $\leftrightarrow$ external resource connectivity
-        \item Proposed by Anthropic; adopted by multiple vendors
+        \item Proposed by Anthropic; adopted by \tool{Cursor}, \tool{Continue}, \tool{Claude Code}, VS Code, JetBrains
         \item Decouples the \emph{host} (LLM application) from \emph{servers} (data/tool providers)
         \item Communication via JSON-RPC 2.0 over stdio or SSE
+        \item No widely-adopted competing open standard; OpenAI's tools API is proprietary
       \end{itemize}
       \vspace{0.5em}
       \textbf{Servers expose three primitives}\\[0.3em]
@@ -195,6 +198,7 @@
         \item Orchestrator merges results
         \item Reduces total wall-clock time
         \item Example: 10 papers analyzed in parallel
+        \item Frameworks: \tool{LangChain}, \tool{AutoGen}, \tool{Google Antigravity}
       \end{itemize}
       \vspace{0.5em}
       \textbf{Reference}\\
@@ -226,6 +230,9 @@
   \end{columns}
   \vspace{0.6em}
   \textbf{Best practice:} Use agents for \emph{reversible, low-stakes} tasks. Build in checkpoints for irreversible actions.
+  \vspace{0.4em}
+
+  \textbf{Progress note (early 2026):} Coding agents have improved dramatically. SWE-agent v1.0 resolves $\sim$65\% of SWE-bench Verified issues; Claude Opus 4.6 (Thinking) reaches 80.9\%; GPT-5.3-Codex achieves 77.3\% on Terminal-Bench 2.0 and 56.8\% on SWE-Bench Pro. Human oversight remains essential for production code.
 \end{frame}
 
 % ---- Demo placeholder -----------------------------------------------

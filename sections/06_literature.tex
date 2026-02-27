@@ -10,8 +10,8 @@
     \begin{column}{0.55\textwidth}
       \textbf{Scale of the challenge}\\[0.3em]
       \begin{itemize}
-        \item arXiv: $>$2.4 million papers as of 2024; $\sim$15K new papers/month in CS alone
-        \item PubMed: $>$36 million citations
+        \item arXiv: $>$2.97 million papers as of early 2026; $\sim$28K new submissions/month (all categories)
+        \item PubMed: $>$39 million citations
         \item Keyword search misses semantically related work
         \item Citation networks reveal influence but not recency
         \item Staying current requires curated workflows
@@ -95,7 +95,9 @@
         \bottomrule
       \end{tabular}
       \vspace{0.7em}
-      \alert{Caveat:} Elicit only covers papers indexed by Semantic Scholar. Verify extractions — LLM-based extraction can miss nuance.
+      \alert{Caveat:} Elicit only covers papers indexed by Semantic Scholar. Verify extractions — LLM-based extraction can miss nuance.\\
+      \vspace{0.3em}
+      \textbf{Pricing:} Free Basic plan; Plus (\$120/yr) and Pro (\$499/yr) plans for more projects, PDFs, and systematic review features.
     \end{column}
   \end{columns}
 \end{frame}
@@ -128,7 +130,8 @@
       \begin{itemize}
         \item Visual — reveals clusters of related work instantly
         \item Weekly email digests of new papers in your collection's neighborhood
-        \item Free for academic use
+        \item Freemium model (Nov 2025): free tier limited to 50 inputs / 1 project;\\
+              ResearchRabbit+ (\$120/yr) for 300 inputs and multiple projects
       \end{itemize}
       \vspace{0.5em}
       \textbf{Limitations}\\[0.3em]
@@ -178,7 +181,7 @@ for p in papers:
         \item Search by keyword, author, venue, DOI
         \item Fetch full citation/reference lists
         \item Paper recommendations via \texttt{/recommendations}
-        \item Rate limit: 100 req/5 min (unauthenticated); 10K/day with API key
+        \item Rate limit: 1 req/sec per API key (free); shared unauthenticated pool
         \item Open Access PDF URLs included when available
       \end{itemize}
       \vspace{0.4em}

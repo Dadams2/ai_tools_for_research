@@ -240,6 +240,40 @@
   Clients \& servers communicate over JSON-RPC 2.0 via stdio or SSE transport.
 \end{frame}
 
+\begin{frame}[fragile]{Appendix: Claude Code via GitHub Copilot Licence}
+  \scriptsize
+  Use your \textbf{academic GitHub Copilot licence} as a free model provider for Claude Code.\\[0.2em]
+  \url{https://github.com/feiskyer/claude-code-settings/blob/main/guidances/github-copilot.md}
+
+  \smallskip
+  \textbf{Step 1 — Install}
+  \begin{lstlisting}[language=bash, numbers=none, basicstyle=\ttfamily\tiny, aboveskip=1pt, belowskip=2pt]
+npm install -g copilot-api @anthropic-ai/claude-code
+  \end{lstlisting}
+
+  \textbf{Step 2 — Start the proxy \& authenticate}
+  \begin{lstlisting}[language=bash, numbers=none, basicstyle=\ttfamily\tiny, aboveskip=1pt, belowskip=2pt]
+copilot-api start --proxy-env
+# Visit https://github.com/login/device and enter the shown code
+  \end{lstlisting}
+
+  \textbf{Step 3 — Create \texttt{\textasciitilde/.claude/settings.json}}
+  \begin{lstlisting}[language=json, numbers=none, basicstyle=\ttfamily\tiny, aboveskip=1pt, belowskip=2pt]
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://localhost:4141",
+    "ANTHROPIC_AUTH_TOKEN": "sk-dummy",
+    "ANTHROPIC_MODEL": "claude-sonnet-4.5",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
+  }
+}
+  \end{lstlisting}
+
+  \textbf{Step 4 — Run Claude Code}\\[0.1em]
+  Open a new terminal and run \texttt{claude}.
+  Available models include \model{claude-opus-4}, \model{gemini-2.5-pro}, \model{o3}, and more.
+\end{frame}
+
 \begin{frame}[allowframebreaks]{References}
   \printbibliography[heading=none]
 \end{frame}

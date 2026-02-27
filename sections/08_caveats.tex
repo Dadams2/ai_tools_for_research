@@ -53,7 +53,7 @@
       \vspace{0.5em}
       \textbf{Best practices}~\parencite{pineau2021reproducibility}\\[0.3em]
       \begin{itemize}
-        \item \textbf{Pin model versions} in your methods: \model{claude-3-5-sonnet-20241022}
+        \item \textbf{Pin model versions} in your methods: \model{claude-sonnet-4-6-20260217}
         \item \textbf{Log all prompts} used in the research process
         \item \textbf{Declare AI use} in acknowledgments / methods
         \item Archive prompts in supplementary materials
@@ -69,7 +69,7 @@
       \begin{lstlisting}[language=python, numbers=none, basicstyle=\ttfamily\scriptsize]
 import json, datetime
 log = {
-  "model": "claude-3-5-sonnet-20241022",
+  "model": "claude-sonnet-4-6-20260217",
   "date": str(datetime.date.today()),
   "task": "related work drafting",
   "prompt": prompt_text,
@@ -93,7 +93,7 @@ json.dump(log, open("ai_log.json","a"))
       \vspace{0.5em}
       \textbf{Terms of service}\\[0.3em]
       \begin{itemize}
-        \item Commercial tools (GPT-4o, Claude) may use inputs for model improvement (check ToS)
+        \item Commercial tools (GPT-5, Claude) may use inputs for model improvement (check ToS)
         \item Enterprise / API tiers often have stronger privacy guarantees
         \item Institutional licenses may have different terms
       \end{itemize}
@@ -120,17 +120,17 @@ json.dump(log, open("ai_log.json","a"))
 \begin{frame}{Peer Review Integrity}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
-      \textbf{Venue policies (as of 2024)}\\[0.4em]
+      \textbf{Venue policies (as of 2026)}\\[0.4em]
       \begin{tabular}{ll}
         \toprule
         \textbf{Venue} & \textbf{Policy} \\
         \midrule
-        NeurIPS & Disclosure required \\
-        ICML    & Disclosure required \\
-        ICLR    & Disclosure required \\
-        ACL     & Prohibited for reviews \\
-        Nature  & Disclosure required; no AI authorship \\
-        Science & Prohibited in peer review \\
+        NeurIPS & Disclosure required (methods section) \\
+        ICML    & Disclosure required (similar to NeurIPS) \\
+        ICLR    & Disclosure required; prompt injection banned \\
+        ACL     & Disclosure required; transparent use only \\
+        Nature  & Disclose use; no AI co-authorship \\
+        Science & AI-generated text prohibited; no AI author \\
         \bottomrule
       \end{tabular}
     \end{column}
@@ -188,7 +188,7 @@ json.dump(log, open("ai_log.json","a"))
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.32\textwidth}
       \begin{block}{Compute \& Climate}
-        Training a large LLM emits hundreds of tonnes of CO\textsubscript{2}-equivalent. Inference at scale adds ongoing costs~\parencite{bender2021stochastic}. Prefer smaller models when they suffice.
+        Training costs remain large, but inference is now far cheaper. Recent estimates: $\sim$0.24--0.34\,Wh per text query ($\approx$0.03--1\,g CO\textsubscript{2}). Text generation per page $\approx$1\,g CO\textsubscript{2}; video generation remains much higher. Prefer smaller models when they suffice~\parencite{bender2021stochastic}.
       \end{block}
     \end{column}
     \hfill

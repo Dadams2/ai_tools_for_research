@@ -11,13 +11,13 @@
     \toprule
     \textbf{Model} & \textbf{Context window} & \textbf{Multimodal} & \textbf{API access} & \textbf{Open weight} \\
     \midrule
-    \tool{Claude 3.5 / Opus 4} & 200K & Vision & Yes & No \\
-    \tool{GPT-4o}              & 128K & Vision + Audio & Yes & No \\
-    \tool{Gemini 1.5 Pro}      & 1M   & Vision + Audio & Yes & No \\
-    \tool{Llama 3.1 405B}      & 128K & Text & Via providers & \checkmark \\
-    \tool{Mistral Large}       & 128K & Text & Yes & Partial \\
-    \tool{Qwen2.5-72B}         & 128K & Vision & Via providers & \checkmark \\
-    \tool{DeepSeek-R1}         & 64K  & Text & Yes & \checkmark \\
+    \tool{Claude Sonnet/Opus 4.6}      & 200K (1M beta) & Vision & Yes & No \\
+    \tool{GPT-5 / o3 / 5.3-Codex}     & 400K & Vision + Audio & Yes & No \\
+    \tool{Gemini 3.0 / 3.1 Pro}       & 1M+  & Vision + Audio + Video & Yes & No \\
+    \tool{Llama 4 Scout / Maverick}    & 10M / 1M & Vision & Via providers & \checkmark \\
+    \tool{Mistral Large 3}             & 256K & Vision & Yes & \checkmark \\
+    \tool{Qwen 3.5}                    & 1M   & Vision & Via providers & \checkmark \\
+    \tool{DeepSeek V3.2}               & 120K & Text & Yes & \checkmark \\
     \bottomrule
   \end{tabularx}
   \vspace{0.3em}
@@ -37,7 +37,7 @@
           \item Fast, conversational, general-purpose
           \item Strong instruction following
           \item \textbf{Best for:} writing, summarization,\newline Q\&A, coding assistance
-          \item \textit{Examples:} \model{claude-3.5-sonnet},\newline \model{gpt-4o}, \model{gemini-flash}
+          \item \textit{Examples:} \model{claude-sonnet-4-6}, \model{claude-haiku-4-5},\newline \model{gpt-5.3-codex}, \model{gemini-3.1-pro}
         \end{itemize}
       \end{block}
     \end{column}
@@ -48,7 +48,7 @@
           \item Slower; internally ``thinks'' before responding
           \item Better at multi-step logical problems
           \item \textbf{Best for:} math proofs, algorithm design,\newline complex debugging, formal reasoning
-          \item \textit{Examples:} \model{o1}, \model{o3}, \model{claude-3.7-sonnet} (extended thinking), \model{deepseek-r1}
+          \item \textit{Examples:} \model{o3}, \model{gpt-5.3-codex}, \model{claude-opus-4-6} (extended thinking), \model{deepseek-v3.2}
         \end{itemize}
       \end{block}
     \end{column}
@@ -80,15 +80,15 @@
           tick label style={font=\small},
         ]
           \addplot[fill=mLightBrown!70] coordinates {
-            (49,SWEBench) (92,HumanEval) (88,MMLU)
+            (79,SWEBench) (85,HumanEval) (89,MMLU)
           };
           \addplot[fill=blue!50] coordinates {
-            (49,SWEBench) (90,HumanEval) (87,MMLU)
+            (80,SWEBench) (85,HumanEval) (87,MMLU)
           };
           \addplot[fill=teal!50] coordinates {
-            (35,SWEBench) (74,HumanEval) (80,MMLU)
+            (65,SWEBench) (85,HumanEval) (87,MMLU)
           };
-          \legend{Claude family, GPT-4o, Llama 3.1}
+          \legend{Claude Opus 4.6, GPT-5.3-Codex, DeepSeek V3.2}
         \end{axis}
       \end{tikzpicture}
       \tiny Approximate/illustrative figures; see official leaderboards.
@@ -116,13 +116,13 @@
 \begin{frame}[fragile]{Open-Weight Models}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
-      \textbf{Leading families (2024--25)}\\[0.4em]
+      \textbf{Leading families (2025--26)}\\[0.4em]
       \begin{itemize}
-        \item \tool{Llama 3.1}~\parencite{touvron2023llama2}: 8B / 70B / 405B — Meta's workhorse
-        \item \tool{Mistral}~\parencite{jiang2023mistral}: efficient, strong at code; Mixtral MoE variant
-        \item \tool{Qwen 2.5}: Alibaba; excellent multilingual \& coding
-        \item \tool{DeepSeek-R1}: reasoning model released with full weights
-        \item \tool{Gemma 2}: Google's research-friendly release
+        \item \tool{Llama 4 Scout / Maverick}: 17B MoE, 10M / 1M context, multimodal — Meta's latest
+        \item \tool{Mistral Large 3}~\parencite{jiang2023mistral}: 41B sparse MoE, 256K context, multimodal
+        \item \tool{Qwen 3.5}: Alibaba; 397B+17B, 1M context, native tool use
+        \item \tool{DeepSeek V3.2}: reasoning-capable, MIT license, 120K context
+        \item \tool{Kimi K2.5} (Moonshot): 1T-param / 32B-active MoE, 256K context, native vision + Agent Swarm
       \end{itemize}
     \end{column}
     \hfill
@@ -130,11 +130,11 @@
       \textbf{Local deployment}\\[0.3em]
       Run any open-weight model locally with \tool{Ollama}:
       \begin{lstlisting}[language=bash, numbers=none]
-# install and pull
-ollama pull llama3.1:70b
+# install Ollama v0.17+ and pull
+ollama pull llama4-maverick
 
 # run inference
-ollama run llama3.1:70b
+ollama run llama4-maverick
       \end{lstlisting}
       \vspace{0.4em}
       \begin{itemize}
@@ -161,12 +161,12 @@ ollama run llama3.1:70b
     \node[decision] (q1) {Sensitive / private\\data?};
     \node[result, left=1.6cm of q1]  (local) {Local open-weight\\\tool{Ollama}/\tool{vLLM}};
     \node[decision, below=0.75cm of q1] (q2) {Needs long context\\(\textgreater 64K tokens)?};
-    \node[result, right=1.6cm of q2] (gemini) {\tool{Gemini 1.5 Pro}\\\tool{Claude} (200K)};
+    \node[result, right=1.6cm of q2] (gemini) {\tool{Gemini 3.1 Pro}\\\tool{Claude 4.6} (200K / 1M)};
     \node[decision, below=0.75cm of q2] (q3) {Multi-step reasoning\\ / formal proof?};
-    \node[result, right=1.6cm of q3] (reason) {\tool{o1}/\tool{o3}\\\tool{Claude + Ext. Think.}};
+    \node[result, right=1.6cm of q3] (reason) {\tool{o3}/\tool{GPT-5.3-Codex}\\\tool{Claude Opus 4.6} (Thinking)};
     \node[decision, below=0.75cm of q3] (q4) {Cost-sensitive\\ or high volume?};
-    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini Flash}\\\tool{Claude Haiku}};
-    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Sonnet}\\\tool{GPT-4o} (general use)};
+    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini 3.0 Flash}\\\tool{Claude Haiku 4.5}};
+    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Sonnet 4.6}\\\tool{GPT-5} / \tool{GPT-5.3-Codex}};
 
     \draw[arr] (q1.west)  -- (local.east)   node[lbl, above]{Yes};
     \draw[arr] (q1.south) -- (q2.north)     node[lbl, right]{No};
@@ -180,4 +180,4 @@ ollama run llama3.1:70b
 \end{frame}
 
 % ---- Demo placeholder -----------------------------------------------
-\demoframe{Side-by-side model comparison — same research prompt in Claude, GPT-4o, and Llama}
+\demoframe{Side-by-side model comparison — same research prompt in Claude Sonnet 4.6, GPT-5.3-Codex, and Llama 4 Maverick}
