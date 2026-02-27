@@ -8,7 +8,8 @@
 \begin{frame}{Hallucination — The Fundamental Problem}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
-      \textbf{What hallucination is}\\[0.3em]
+      {\small
+      \textbf{What hallucination is}\\[0.2em]
       \begin{itemize}
         \item LLMs generate text that is \emph{fluent but false}~\parencite{huang2023hallucination}
         \item Fabricated citations with real-looking DOIs, authors, venues
@@ -16,24 +17,24 @@
         \item Outdated information presented as current
         \item Confident tone regardless of accuracy
       \end{itemize}
-      \vspace{0.5em}
-      \textbf{Particularly dangerous in research}\\[0.3em]
+      \vspace{0.3em}
+      \textbf{Particularly dangerous in research}\\[0.2em]
       \begin{itemize}
         \item Fabricated citations erode scientific record
         \item Wrong experimental details can waste resources
         \item False ``prior work'' shapes research direction incorrectly
-      \end{itemize}
+      \end{itemize}}
     \end{column}
     \hfill
     \begin{column}{0.42\textwidth}
       \begin{block}{Mitigation strategies}
-        \begin{itemize}
+        {\small\begin{itemize}
           \item \textbf{Verify every citation} independently via DOI / Scholar
           \item Use models with \textbf{retrieval grounding} (Perplexity, NotebookLM)
           \item Ask model to \textbf{express uncertainty}: ``If you are not sure, say so''
           \item \textbf{Cross-check} key claims with a second model
           \item Prefer grounded tasks (summarize \emph{this} text) over generative tasks (tell me about X)
-        \end{itemize}
+        \end{itemize}}
       \end{block}
     \end{column}
   \end{columns}
@@ -43,29 +44,30 @@
 \begin{frame}[fragile]{Reproducibility}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
-      \textbf{The problem}\\[0.3em]
+      {\small
+      \textbf{The problem}\\[0.2em]
       \begin{itemize}
         \item Prompts + model version determine outputs
         \item Models are updated silently — same prompt, different answer
         \item Non-determinism even at temperature=0 (infrastructure variance)
         \item AI-generated code may not reproduce without the exact model
       \end{itemize}
-      \vspace{0.5em}
-      \textbf{Best practices}~\parencite{pineau2021reproducibility}\\[0.3em]
+      \vspace{0.3em}
+      \textbf{Best practices}~\parencite{pineau2021reproducibility}\\[0.2em]
       \begin{itemize}
         \item \textbf{Pin model versions} in your methods: \model{claude-sonnet-4-6-20260217}
         \item \textbf{Log all prompts} used in the research process
         \item \textbf{Declare AI use} in acknowledgments / methods
         \item Archive prompts in supplementary materials
-      \end{itemize}
+      \end{itemize}}
     \end{column}
     \hfill
     \begin{column}{0.42\textwidth}
       \begin{block}{Methods section template}
         \small \textit{``We used [Model, Version, Date] to assist with [specific task]. The prompts are provided in Appendix~X. All AI-generated content was verified by the authors.''}
       \end{block}
-      \vspace{0.5em}
-      \textbf{Logging example}\\[0.3em]
+      \vspace{0.3em}
+      \textbf{Logging example}\\[0.2em]
       \begin{lstlisting}[language=python, numbers=none, basicstyle=\ttfamily\scriptsize]
 import json, datetime
 log = {
@@ -84,34 +86,35 @@ json.dump(log, open("ai_log.json","a"))
 \begin{frame}{IP and Data Privacy}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.48\textwidth}
-      \textbf{Training data provenance}\\[0.3em]
+      {\small
+      \textbf{Training data provenance}\\[0.2em]
       \begin{itemize}
         \item Frontier models trained on large web corpora; copyright status contested
         \item Generated code may resemble training data (memorization)
         \item IP ownership of AI-generated content is legally unsettled
       \end{itemize}
-      \vspace{0.5em}
-      \textbf{Terms of service}\\[0.3em]
+      \vspace{0.3em}
+      \textbf{Terms of service}\\[0.2em]
       \begin{itemize}
         \item Commercial tools (GPT-5, Claude) may use inputs for model improvement (check ToS)
         \item Enterprise / API tiers often have stronger privacy guarantees
         \item Institutional licenses may have different terms
-      \end{itemize}
+      \end{itemize}}
     \end{column}
     \hfill
     \begin{column}{0.48\textwidth}
       \begin{block}{When to use local models}
-        Use open-weight models locally (\tool{Ollama}, \tool{vLLM}) for:
+        {\small Use open-weight models locally (\tool{Ollama}, \tool{vLLM}) for:
         \begin{itemize}
           \item Unpublished research data
           \item Confidential datasets (medical, industrial)
           \item Code under NDA
           \item Proprietary algorithms
           \item Pre-publication manuscripts
-        \end{itemize}
+        \end{itemize}}
       \end{block}
       \vspace{0.3em}
-      \alert{Check your institution's AI policy before using any external tool with research data.}
+      {\small\alert{Check your institution's AI policy before using any external tool with research data.}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -121,7 +124,8 @@ json.dump(log, open("ai_log.json","a"))
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
       \textbf{Venue policies (as of 2026)}\\[0.4em]
-      \begin{tabular}{ll}
+      {\footnotesize
+      \begin{tabular}{@{}lp{4.8cm}@{}}
         \toprule
         \textbf{Venue} & \textbf{Policy} \\
         \midrule
@@ -132,7 +136,7 @@ json.dump(log, open("ai_log.json","a"))
         Nature  & Disclose use; no AI co-authorship \\
         Science & AI-generated text prohibited; no AI author \\
         \bottomrule
-      \end{tabular}
+      \end{tabular}}
     \end{column}
     \hfill
     \begin{column}{0.42\textwidth}

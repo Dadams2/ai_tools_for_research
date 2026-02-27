@@ -58,12 +58,12 @@
 \end{frame}
 
 % ---- Benchmarks slide --------------------------------------
-\begin{frame}[shrink=12]{Benchmarks — Useful Signal, Not Ground Truth}
+\begin{frame}[shrink=18]{Benchmarks — Useful Signal, Not Ground Truth}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
       \begin{tikzpicture}
         \begin{axis}[
-          width=\textwidth, height=4.2cm,
+          width=\textwidth, height=9.0cm,
           xbar, bar width=0.35cm,
           symbolic y coords={SWEBench, HumanEval, MMLU},
           ytick=data,
@@ -88,7 +88,7 @@
           \addplot[fill=teal!50] coordinates {
             (65,SWEBench) (85,HumanEval) (87,MMLU)
           };
-          \legend{Claude Opus 4.6, GPT-5.3-Codex, DeepSeek V3.2}
+          \legend{Claude Opus 4.6, GPT-5.3-Codex, Gemini 3.1 Pro}
         \end{axis}
       \end{tikzpicture}
       \tiny Approximate/illustrative figures; see official leaderboards.

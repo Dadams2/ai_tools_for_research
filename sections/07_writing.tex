@@ -101,7 +101,7 @@ Active voice where possible.
 
 % ---- Tool comparison for writing ---------------------------
 \begin{frame}{Tool Comparison for Academic Writing}
-  \small
+  \footnotesize
   \begin{tabularx}{\textwidth}{lYYYY}
     \toprule
     \textbf{Tool} & \textbf{Long-form drafting} & \textbf{Technical accuracy} & \textbf{Citations} & \textbf{Best for} \\
@@ -113,15 +113,16 @@ Active voice where possible.
     \tool{Writefull}        & Good      & Academic-tuned & No & Non-native speaker editing \\
     \bottomrule
   \end{tabularx}
-  \vspace{0.4em}
-  \small \alert{Note:} None of these tools produce verifiable citations independently. Always cross-check any citation they suggest.
+  \vspace{0.2em}
+  \footnotesize \alert{Note:} None of these tools produce verifiable citations independently. Always cross-check any citation they suggest.
 \end{frame}
 
 % ---- LaTeX-specific assistance ----------------------------
 \begin{frame}[fragile]{LaTeX-Specific Assistance}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.48\textwidth}
-      \textbf{What LLMs do well in LaTeX}\\[0.3em]
+      {\small
+      \textbf{What LLMs do well in LaTeX}\\[0.2em]
       \begin{itemize}
         \item Equation formatting from handwritten / pseudocode notation
         \item TikZ diagram generation from descriptions
@@ -129,8 +130,8 @@ Active voice where possible.
         \item Table construction (booktabs from CSV data)
         \item Algorithm environment from pseudocode
       \end{itemize}
-      \vspace{0.5em}
-      \textbf{Example prompt}\\[0.3em]
+      \vspace{0.3em}
+      \textbf{Example prompt}\\[0.2em]}
       \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize]
 Write a TikZ diagram of a
 Transformer encoder block
@@ -141,7 +142,7 @@ connections. Use a clean style.
     \end{column}
     \hfill
     \begin{column}{0.48\textwidth}
-      \textbf{BibTeX cleanup prompt}\\[0.3em]
+      {\small\textbf{BibTeX cleanup prompt}\\[0.2em]}
       \begin{lstlisting}[language={}, numbers=none, basicstyle=\ttfamily\scriptsize]
 Clean and standardize these BibTeX
 entries. Fix: missing fields, title
@@ -151,8 +152,8 @@ consistent citation keys: AuthorYearKeyword.
 
 [BIB ENTRIES]
       \end{lstlisting}
-      \vspace{0.5em}
-      \alert{Compile and verify all generated LaTeX.} LLMs produce syntactically plausible but sometimes broken code — always test in your document.
+      \vspace{0.3em}
+      {\small\alert{Compile and verify all generated LaTeX.} LLMs produce syntactically plausible but sometimes broken code — always test in your document.}
     \end{column}
   \end{columns}
 \end{frame}
