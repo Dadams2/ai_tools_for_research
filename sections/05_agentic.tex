@@ -207,6 +207,24 @@
   \end{columns}
 \end{frame}
 
+% ---- Popular agent harnesses ------------------------------
+\begin{frame}{Popular Agent Harnesses (2026)}
+  \small
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.21\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} X}
+    \toprule
+    \textbf{Harness} & \textbf{Strength} & \textbf{Good fit for research} \\
+    \midrule
+    \tool{LangGraph} (LangChain) & Durable graph/state-machine workflows & Multi-step pipelines with checkpoints, retries, and human approval gates. \\
+    \tool{Microsoft AutoGen} & Multi-agent conversation patterns & Role-specialized agents (planner, coder, critic, writer) collaborating on one task. \\
+    \tool{CrewAI} & Fast role-based orchestration & Lightweight team-style workflows for literature and reporting tasks. \\
+    \tool{OpenAI Agents SDK} & Tool-first hosted agents & Strong when your stack is already centered on OpenAI tools and tracing. \\
+    \tool{smolagents} (HF) & Minimal Python API & Quick prototypes for local/open models and simple tool loops. \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.4em}
+  \textbf{Selection heuristic:} pick by \emph{control model} (graph vs chat loop), \emph{observability}, \emph{human-in-the-loop support}, and \emph{deployment constraints}.
+\end{frame}
+
 % ---- Current limitations -----------------------------------
 \begin{frame}{Current Limitations}
   \begin{columns}[T, onlytextwidth]
@@ -235,5 +253,33 @@
   \textbf{Progress note (early 2026):} Coding agents have improved dramatically. SWE-agent v1.0 resolves $\sim$65\% of SWE-bench Verified issues; Claude Opus 4.6 (Thinking) reaches 80.9\%; GPT-5.3-Codex achieves 77.3\% on Terminal-Bench 2.0 and 56.8\% on SWE-Bench Pro. Human oversight remains essential for production code.
 \end{frame}
 
-% ---- Demo placeholder -----------------------------------------------
-\demoframe{Agentic workflow — Working on Pyperplan}
+% ---- Demo idea -------------------------------------------------------
+\begin{frame}[shrink=8]{Live Demo Idea: Research Harness on Planning Benchmarks}
+  \textbf{Goal (7--8 min):} show one harness coordinating search, coding, and writing in a single loop.
+
+  \vspace{0.4em}
+  \textbf{Scenario (from this repo)}
+  \begin{itemize}
+    \item Start in the Pyperplan workspace (Section 5 context)
+    \item Task: compare 2 heuristics on one benchmark domain and produce a mini result summary
+  \end{itemize}
+
+  \vspace{0.3em}
+  \textbf{Harness roles}
+  \begin{itemize}
+    \item \textbf{Planner agent}: chooses benchmark/problem pairs and run commands
+    \item \textbf{Coder agent}: patches experiment script + parses run logs into a small CSV
+    \item \textbf{Writer agent}: drafts 5 bullet points + 1 LaTeX-ready table row
+  \end{itemize}
+
+  \vspace{0.3em}
+  \textbf{Why it connects to this talk}
+  \begin{itemize}
+    \item \textbf{Coding assistants}: concrete repo edits and terminal execution
+    \item \textbf{Agentic workflows}: orchestrator + subagents + tool calls
+    \item \textbf{Writing support}: automatic conversion of results into slide/paper text
+  \end{itemize}
+
+  \vspace{0.3em}
+  \textbf{Safety gate:} require manual approval before any file overwrite outside a demo folder.
+\end{frame}
