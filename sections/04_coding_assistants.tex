@@ -87,13 +87,12 @@
         \item VS Code fork — full extension compatibility
       \end{itemize}
       \vspace{0.4em}
-      \textbf{Research use cases}\\[0.3em]
-      \begin{itemize}
-        \item ``Implement Algorithm 2 from the attached paper''
-        \item Refactor a training script across 10 files
-        \item Ask questions about a large inherited codebase
-        \item \textbf{OpenCode}: highly popular, open-source terminal/IDE/desktop agent
-      \end{itemize}
+      % \textbf{Research use cases}\\[0.3em]
+      % \begin{itemize}
+      %   \item ``Implement Algorithm 2 from the attached paper''
+      %   \item Refactor a training script across 10 files
+      %   \item Ask questions about a large inherited codebase
+      % \end{itemize}
     \end{column}
     \hfill
     \begin{column}{0.42\textwidth}
@@ -190,7 +189,7 @@ aider --model claude-sonnet-4-6
 \end{frame}
 
 % ---- Comparison matrix -------------------------------------
-\begin{frame}{Coding Assistant Comparison}
+\begin{frame}{Coding Assistant Comparison - TLDR}
   \small
   \begin{tabularx}{\textwidth}{lYYYY}
     \toprule
@@ -200,13 +199,65 @@ aider --model claude-sonnet-4-6
     \tool{Cursor}              & Yes     & No  & Yes     & GUI-based multi-file edits \\
     \tool{Claude Code}         & Yes     & No  & Yes     & Terminal, end-to-end tasks \\
     \tool{GPT-5.5}             & Yes     & No  & Yes     & Agentic; mid-task steering, flagship reasoning \\
-    \tool{Aider}               & Yes     & Yes & Yes     & Git-native CLI power users \\
-    \tool{Continue}            & Partial & Yes & Partial & Model-agnostic IDE plugin \\
+    \tool{PI}                  & Yes     & Yes & Yes     & Minimal highly extensible Terminal agent\\
     \tool{OpenCode}            & Yes     & Yes & Yes     & Terminal/IDE/desktop; 75+ LLM providers \\
     \bottomrule
   \end{tabularx}
   \vspace{0.5em}
   \small \alert{No single winner} — the right tool depends on your workflow, IDE preference, and data-sensitivity requirements.
+\end{frame}
+
+% ---- AI coding products table ------------------------------
+\begin{frame}{AI Coding Tools: Product Landscape I}
+\centering
+\scriptsize
+\begin{tabular}{p{2.6cm} p{2.7cm} c c p{1.7cm} p{1.4cm}}
+\toprule
+\textbf{Product} & \textbf{Type} & \textbf{Open} & \textbf{BYOM} & \textbf{Price} & \textbf{Released} \\
+\midrule
+Cursor & Standalone IDE; Local/CLI; Cloud & -- & -- & \$0--200/mo & Mar 2023 \\
+Claude Code & IDE Ext.; Local/CLI; Cloud & -- & -- & \$20--200/mo & Feb 2025 \\
+GitHub Copilot Coding Agent & IDE Ext.; Cloud & -- & -- & \$0--39/mo & May 2025 \\
+Windsurf & Standalone IDE & -- & -- & \$0--200/mo & Nov 2024 \\
+Codex & IDE Ext.; Local/CLI; Cloud & -- & -- & \$0--200/mo & Apr 2025 \\
+Cline & IDE Ext.; Local/CLI & -- & -- & Free + API & Jul 2024 \\
+Devin & Cloud & -- & -- & \$20--500/mo & Mar 2024 \\
+Aider & Local/CLI & -- & -- & Free + API & Jun 2023 \\
+Google Antigravity & Standalone IDE & -- & -- & \$0--250/mo & Nov 2025 \\
+Roo Code & IDE Extension & -- & -- & Free + API & Nov 2024 \\
+Amazon Q Developer & IDE Ext.; Local/CLI & -- & -- & \$0--19/mo & Apr 2024 \\
+Gemini Code Assist & IDE Ext.; Local/CLI & -- & -- & \$0--45+/mo & Apr 2024 \\
+Continue & IDE Ext.; Local/CLI & Yes & Yes & \$0--20/mo & Jul 2023 \\
+OpenHands & Cloud & Yes & Yes & \$0--500/mo & Mar 2024 \\
+Zed & Standalone IDE & -- & -- & \$0--10/mo & Jan 2024 \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}{AI Coding Tools: Product Landscape II}
+\centering
+\scriptsize
+\begin{tabular}{p{2.6cm} p{2.7cm} c c p{1.7cm} p{1.4cm}}
+\toprule
+\textbf{Product} & \textbf{Type} & \textbf{Open} & \textbf{BYOM} & \textbf{Price} & \textbf{Released} \\
+\midrule
+Augment Code & IDE Ext.; Local/CLI & -- & -- & \$20--200/mo & Apr 2024 \\
+Amp & IDE Ext.; Local/CLI & -- & -- & Free + API & May 2025 \\
+Kiro & Standalone IDE; Local/CLI & -- & -- & \$0--200/mo & Jul 2025 \\
+Jules & Cloud & -- & -- & \$0--250/mo & May 2025 \\
+Gemini CLI & Local/CLI & -- & Yes & Free + API & Jun 2025 \\
+Goose & Local/CLI & Yes & Yes & Free + API & Jan 2025 \\
+Warp 2.0 & Local/CLI & -- & -- & \$0--200/mo & Jun 2025 \\
+Genie & Cloud & -- & -- & \$0--99/mo & Aug 2024 \\
+Manus & Cloud & -- & -- & \$0--199/mo & Mar 2025 \\
+Mistral Vibe & IDE Ext.; Local/CLI & -- & -- & \$0--50/mo & Jun 2025 \\
+opencode & IDE Ext.; Local/CLI & Yes & Yes & Free + API & Jun 2025 \\
+Qoder & Standalone IDE & -- & -- & \$0--100/mo & Aug 2025 \\
+Qwen Code & Local/CLI & Yes & Yes & Free + API & Jul 2025 \\
+Kimi CLI & IDE Ext.; Local/CLI & -- & Yes & Free + API & Oct 2025 \\
+BLACKBOX & IDE Ext.; IDE; CLI; Cloud & -- & -- & \$10--40/mo & Sep 2022 \\
+\bottomrule
+\end{tabular}
 \end{frame}
 
 % ---- Demo placeholder -----------------------------------------------

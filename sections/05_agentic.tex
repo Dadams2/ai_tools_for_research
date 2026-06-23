@@ -102,7 +102,7 @@
       \textbf{What is MCP?}~\parencite{anthropic2024mcp}\\[0.3em]
       \begin{itemize}
         \item Open standard for LLM $\leftrightarrow$ external resource connectivity
-        \item Proposed by Anthropic; adopted by \tool{Cursor}, \tool{Continue}, \tool{Claude Code}, VS Code, JetBrains
+        \item Proposed by Anthropic; adopted by \tool{Cursor}, \tool{Claude Code}, \tool{Codex}, \tool{OpenCode} VS Code, JetBrains
         \item Decouples the \emph{host} (LLM application) from \emph{servers} (data/tool providers)
         \item Communication via JSON-RPC 2.0 over stdio or SSE
         \item No widely-adopted competing open standard; OpenAI's tools API is proprietary
@@ -252,6 +252,7 @@
     \midrule
     \tool{LangGraph} (LC) & Durable graph, persistence, Deep Agents & Complex pipelines with checkpoints, retries, and human approval gates. \\
     \tool{Pi} & Minimal, hackable; packageable skills/extensions & Researchers who want to customize/inspect the loop over using heavy frameworks. \\
+    \tool{GasTown} & Multi-agent orchestration system for other agents & Conducting fully autonomous experiments with other tools \\
     \tool{smolagents} (HF) & Minimal HF library, executable Python code & Quick prototypes and tool loops in a few lines of code. \\
     \tool{OpenAI Agents SDK} & Tool-first hosted agents & Strong when your stack is already centered on OpenAI tools and tracing. \\
     \tool{CrewAI} / AutoGen & Multi-agent conversation/role patterns & Lightweight team-style or role-collaborative (planner, coder, critic) workflows. \\
@@ -332,32 +333,32 @@
 \end{frame}
 
 % ---- Demo idea -------------------------------------------------------
-\begin{frame}[shrink=8]{Live Demo Idea: Research Harness on Planning Benchmarks}
-  \textbf{Goal (7--8 min):} show one harness coordinating search, coding, and writing in a single loop.
+% \begin{frame}[shrink=8]{Live Demo Idea: Research Harness on Planning Benchmarks}
+%   \textbf{Goal (7--8 min):} show one harness coordinating search, coding, and writing in a single loop.
 
-  \vspace{0.4em}
-  \textbf{Scenario (from this repo)}
-  \begin{itemize}
-    \item Start in the Pyperplan workspace (Section 5 context)
-    \item Task: compare 2 heuristics on one benchmark domain and produce a mini result summary
-  \end{itemize}
+%   \vspace{0.4em}
+%   \textbf{Scenario (from this repo)}
+%   \begin{itemize}
+%     \item Start in the Pyperplan workspace (Section 5 context)
+%     \item Task: compare 2 heuristics on one benchmark domain and produce a mini result summary
+%   \end{itemize}
 
-  \vspace{0.3em}
-  \textbf{Harness roles}
-  \begin{itemize}
-    \item \textbf{Planner agent}: chooses benchmark/problem pairs and run commands
-    \item \textbf{Coder agent}: patches experiment script + parses run logs into a small CSV
-    \item \textbf{Writer agent}: drafts 5 bullet points + 1 LaTeX-ready table row
-  \end{itemize}
+%   \vspace{0.3em}
+%   \textbf{Harness roles}
+%   \begin{itemize}
+%     \item \textbf{Planner agent}: chooses benchmark/problem pairs and run commands
+%     \item \textbf{Coder agent}: patches experiment script + parses run logs into a small CSV
+%     \item \textbf{Writer agent}: drafts 5 bullet points + 1 LaTeX-ready table row
+%   \end{itemize}
 
-  \vspace{0.3em}
-  \textbf{Why it connects to this talk}
-  \begin{itemize}
-    \item \textbf{Coding assistants}: concrete repo edits and terminal execution
-    \item \textbf{Agentic workflows}: orchestrator + subagents + tool calls
-    \item \textbf{Writing support}: automatic conversion of results into slide/paper text
-  \end{itemize}
+%   \vspace{0.3em}
+%   \textbf{Why it connects to this talk}
+%   \begin{itemize}
+%     \item \textbf{Coding assistants}: concrete repo edits and terminal execution
+%     \item \textbf{Agentic workflows}: orchestrator + subagents + tool calls
+%     \item \textbf{Writing support}: automatic conversion of results into slide/paper text
+%   \end{itemize}
 
-  \vspace{0.3em}
-  \textbf{Safety gate:} require manual approval before any file overwrite outside a demo folder.
-\end{frame}
+%   \vspace{0.3em}
+%   \textbf{Safety gate:} require manual approval before any file overwrite outside a demo folder.
+% \end{frame}
