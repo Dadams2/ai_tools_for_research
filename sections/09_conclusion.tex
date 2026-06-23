@@ -55,6 +55,25 @@
   \end{tikzpicture}
 \end{frame}
 
+% ---- Researcher Stack ------------------------------------
+\begin{frame}{A 2026 CS Researcher AI Stack}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{lp{0.36\textwidth}X}
+    \toprule
+    \textbf{Need} & \textbf{Suggested Tools} & \textbf{Core Strengths} \\
+    \midrule
+    \textbf{Fast coding} & \tool{Copilot}, \tool{Cursor}, \tool{Claude Code}, \tool{Codex CLI} & Instant completions, GUI Composer edits, direct terminal loop. \\
+    \textbf{Power-user CLI} & \tool{Claude Code}, \tool{Codex CLI}, \tool{Aider}, \tool{OpenCode} & Headless workspace edits, Git-aware diffing and logs. \\
+    \textbf{Local / private} & \tool{Ollama}/\tool{LM Studio} + \model{Qwen}/\model{Gemma}/\model{Kimi} & Strong air-gapped data sovereignty; no external LLM costs. \\
+    \textbf{Agent loops} & \tool{LangGraph}, \tool{OpenAI Agents SDK}, \tool{Pi}, \tool{smolagents} & Durable execution graphs, hackable minimal loops. \\
+    \textbf{Memory state} & \tool{Beads}, repo maps, project instruction files & Persistent task dependency graphs. \\
+    \textbf{Literature} & \tool{Semantic Scholar API}, \tool{Elicit}, \tool{ResearchRabbit} & Programmatic citation network visualization, systematic reviews. \\
+    \textbf{Synthesis} & \tool{Gemini 3}, \tool{Claude} (long-context), \tool{NotebookLM} & 1M+ token comprehension. NotebookLM capped at 100 notebooks.\\
+    \textbf{Safety \& Gov.} & Human approval gates, tool sandboxing & Prevents credential leakage, injection, and irreversible drops. \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
 % ---- Resources --------------------------------------------
 \begin{frame}{Resources \& Further Reading}
   \begin{columns}[T, onlytextwidth]

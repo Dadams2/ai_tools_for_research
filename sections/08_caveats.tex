@@ -187,6 +187,32 @@ json.dump(log, open("ai_log.json","a"))
   \end{columns}
 \end{frame}
 
+% ---- Agentic Security Slide ------------------------------
+\begin{frame}{Security in Agentic Systems: Critical Risks}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Key Threat Verticals}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item \textbf{Indirect Prompt Injection}: Malicious inputs in raw sources (emails, papers, GitHub issues) override agent instructions, executing unauthorized commands.
+        \item \textbf{Over-Permissioned Tools}: Providing write, delete, or executables (e.g. bash) access without constraints is highly risky.
+        \item \textbf{Credential Leaks}: Agent logs or context dumps accidentally printing API keys, environment variables, or private SSH keys.
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Supply Chain \& Action Risks}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item \textbf{Package Hallucination}: Agents requesting non-existent packages, enabling attackers to register them (dependency slopsquatting / typosquatting).
+        \item \textbf{Irreversible Actions}: Sending emails, deleting local directories, database drops, or pulling untrusted scripts.
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{alertblock}{Best Mitigation Practice}
+        Run agents in sandboxed containers (Docker/gVisor), require human-in-the-loop approvals for all write/external actions, clean system logs of any API files/secrets, and enforce strict execution constraints.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ---- Broader picture ----------------------------------------
 \begin{frame}{The Broader Picture}
   \begin{columns}[T, onlytextwidth]

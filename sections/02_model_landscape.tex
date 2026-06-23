@@ -7,20 +7,22 @@
 % ---- Frontier players table --------------------------------
 \begin{frame}{Frontier Players}
   \small
-  \begin{tabularx}{\textwidth}{lYYYY}
+  \begin{tabularx}{\textwidth}{lXXXX}
     \toprule
-    \textbf{Model} & \textbf{Context window} & \textbf{Multimodal} & \textbf{API access} & \textbf{Open weight} \\
+    \textbf{Model} & \textbf{Context} & \textbf{Pricing (per 1M input / output)} & \textbf{Status / Source} & \textbf{Open Weight} \\
     \midrule
-    \tool{Claude Sonnet/Opus 4.6}      & 200K (1M beta) & Vision & Yes & No \\
-    \tool{GPT-5 / o3 / 5.3-Codex}     & 400K & Vision + Audio & Yes & No \\
-    \tool{Gemini 3.0 / 3.1 Pro}       & 1M+  & Vision + Audio + Video & Yes & No \\
-    \tool{Llama 4 Scout / Maverick}    & 10M / 1M & Vision & Via providers & \checkmark \\
-    \tool{Mistral Large 3}             & 256K & Vision & Yes & \checkmark \\
-    \tool{Qwen 3.5}                    & 1M   & Vision & Via providers & \checkmark \\
-    \tool{DeepSeek V3.2}               & 120K & Text & Yes & \checkmark \\
+    \tool{GPT-5.5}            & 400K & \$5.00 / \$30.00\textsuperscript{\(\dagger\)} & Official API Docs & No \\
+    \tool{Claude Opus 4.8}    & 1M   & (TBD) & Official API Docs & No \\
+    \tool{Claude Sonnet 4.6}  & 1M   & \$3.00 / \$15.00  & Official API Docs & No \\
+    \tool{Claude Haiku 4.5}   & 200K & [\model{Pricing TBD}] & Official API Docs & No \\
+    \tool{Gemini 3}           & 1M+  & Variant & Developer Announcement & No \\
+    \tool{Gemini 3 Flash}     & 1M+  & \$0.50 / \$3.00   & Developer Announcement & No \\
+    \tool{Gemma 4 12B}        & 128K & Laptop-optimized & Google Edge Release & \checkmark \\
+    \tool{Kimi K2}            & 256K & MoE (1T total/32B active) & Moonshot Announcement & \checkmark \\
     \bottomrule
   \end{tabularx}
-  \vspace{0.3em}
+  \vspace{0.4em}
+  {\tiny\textbf{Note:} \textsuperscript{\(\dagger\)}Cached input: \$0.50. Prices, context windows, and model names change frequently; verify before teaching. All details as of June 2026.}
 
   \begin{itemize}
     \item \textbf{Capability gap is shrinking} — open-weight models are increasingly competitive
@@ -37,7 +39,7 @@
           \item Fast, conversational, general-purpose
           \item Strong instruction following
           \item \textbf{Best for:} writing, summarization,\newline Q\&A, coding assistance
-          \item \textit{Examples:} \model{claude-sonnet-4-6}, \model{claude-haiku-4-5},\newline \model{gpt-5.3-codex}, \model{gemini-3.1-pro}
+          \item \textit{Examples:} \model{claude-sonnet-4-6}, \model{claude-haiku-4-5},\newline \model{gpt-5.5}, \model{gemini-3-flash}
         \end{itemize}
       \end{block}
     \end{column}
@@ -48,7 +50,7 @@
           \item Slower; internally ``thinks'' before responding
           \item Better at multi-step logical problems
           \item \textbf{Best for:} math proofs, algorithm design,\newline complex debugging, formal reasoning
-          \item \textit{Examples:} \model{o3}, \model{gpt-5.3-codex}, \model{claude-opus-4-6} (extended thinking), \model{deepseek-v3.2}
+          \item \textit{Examples:} \model{gpt-5.5} (reasoning config),\newline \model{claude-opus-4-8} (extended thinking),\newline \model{kimi-k2-thinking}, \model{deepseek-r1}
         \end{itemize}
       \end{block}
     \end{column}
@@ -88,10 +90,10 @@
           \addplot[fill=teal!50] coordinates {
             (65,SWEBench) (85,HumanEval) (87,MMLU)
           };
-          \legend{Claude Opus 4.6, GPT-5.3-Codex, Gemini 3.1 Pro}
+        \legend{Claude Opus 4.8, GPT-5.5, Gemini 3}
         \end{axis}
       \end{tikzpicture}
-      \tiny Approximate/illustrative figures; see official leaderboards.
+      \tiny Approximate/illustrative figures (As of June 2026).
     \end{column}
     \hfill
     \begin{column}{0.42\textwidth}
@@ -104,45 +106,84 @@
       \vspace{0.6em}
       \textbf{Caveats}\\[0.3em]
       \begin{itemize}
+        \item \textbf{Harness-dependence}: Agent benchmark scores (SWE-bench, Terminal-Bench) measure the \textbf{model + harness + tools + budget}, not model alone. Scaffolding dominates results.
         \item Contamination risk — benchmarks leak into training data~\parencite{srivastava2022bigbench}
-        \item Does not capture latency, cost, or UX
-        \item Task-specific evals often more informative
+        \item Metric design can favor verbose or multi-rollout structures
       \end{itemize}
     \end{column}
   \end{columns}
 \end{frame}
 
+% ---- Local Agentic Workflows -------------------------------
+\begin{frame}{Local Models: From Chat to Agentic Workflows}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{The local paradigm shift}
+      \begin{itemize}
+        \item Moved beyond simple ``cheap chat models on Ollama''
+        \item Edge intelligence enables private, continuous run loops
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Local models are now useful for:}
+      \begin{itemize}
+        \item Private codebase Q\&A and simple refactors
+        \item Offline/air-gapped drafting and summarization
+        \item Edge multimodal agents (laptops/devices)
+        \item Low-cost batch extraction operations
+        \item Custom fine-tuning and distillation pipelines
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Deployment and Execution}
+      \begin{itemize}
+        \item Run fully local with \tool{Ollama}, \tool{LM Studio}, or \tool{vLLM}
+        \item Decoupled private APIs for academic environments
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{block}{Security Advantage}
+        Zero data leakage to external commercial servers. Ensures complete IP custody of unpublished research, drafts, and experimental results.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{0.4em}
+  \centering\tiny\textit{All models updated as of June 2026.}
+\end{frame}
+
 % ---- Open-weight models ------------------------------------
-\begin{frame}[fragile]{Open-Weight Models}
+\begin{frame}[fragile]{Leading Open-Weight Families}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.55\textwidth}
-      \textbf{Leading families (2025--26)}\\[0.4em]
-      \begin{itemize}
-        \item \tool{Llama 4 Scout / Maverick}: 17B MoE, 10M / 1M context, multimodal — Meta's latest
-        \item \tool{Mistral Large 3}~\parencite{jiang2023mistral}: 41B sparse MoE, 256K context, multimodal
-        \item \tool{Qwen 3.5}: Alibaba; 397B+17B, 1M context, native tool use
-        \item \tool{DeepSeek V3.2}: reasoning-capable, MIT license, 120K context
-        \item \tool{Kimi K2.5} (Moonshot): 1T-param / 32B-active MoE, 256K context, native vision + Agent Swarm
+      \textbf{Model Families \& Capabilities}\\[0.3em]
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item \tool{Gemma 4 12B}: Mid-sized, native multimodal audio/vision, designed for agentic tasks on laptops.
+        \item \tool{Gemma 3 / 3n / FunctionGemma}: Vision-language support, 128K context window, structured output/function calling.
+        \item \tool{Kimi K2 / K2 Thinking}: 1T-total / 32B-active MoE; reasoning-capable open agentic workflows.
+        \item \tool{Qwen3.5}: Qwen3.5-Plus supports 1M context with built-in tools.
+        \item \tool{Mistral Large 3}~\parencite{jiang2023mistral}: Multimodal, general-purpose MoE.
+        \item \tool{Llama 4 Scout/Maverick}: Multimodal; Scout marketed around extremely long context (caveat benchmark comparison).
       \end{itemize}
     \end{column}
     \hfill
     \begin{column}{0.42\textwidth}
       \textbf{Local deployment}\\[0.3em]
-      Run any open-weight model locally with \tool{Ollama}:
-      \begin{lstlisting}[language=bash, numbers=none]
-# install Ollama v0.17+ and pull
-ollama pull llama4-maverick
+      Run open-weight models with \tool{Ollama} / \tool{vLLM}:
+      \begin{lstlisting}[language=bash, numbers=none, basicstyle=\ttfamily\tiny]
+# Install Ollama and pull Gemma
+ollama pull gemma4:12b
 
-# run inference
-ollama run llama4-maverick
+# Run local inference
+ollama run gemma4:12b
       \end{lstlisting}
       \vspace{0.4em}
       \begin{itemize}
-        \item \textbf{Use case:} sensitive data, airgapped environments, no API cost
-        \item Also: \tool{vLLM}, \tool{llama.cpp}, \tool{LM Studio}
+        \item Excellent for confidential draft synthesis and coding pipelines.
+        \item Support via Aider/OpenCode with local endpoints.
       \end{itemize}
     \end{column}
   \end{columns}
+  \vspace{0.4em}
+  \centering\tiny\textit{Model details as of June 2026. Verify benchmark comparability carefully.}
 \end{frame}
 
 % ---- Choosing a model — decision tree ----------------------
@@ -161,12 +202,12 @@ ollama run llama4-maverick
     \node[decision] (q1) {Sensitive / private\\data?};
     \node[result, left=1.6cm of q1]  (local) {Local open-weight\\\tool{Ollama}/\tool{vLLM}};
     \node[decision, below=0.75cm of q1] (q2) {Needs long context\\(\textgreater 64K tokens)?};
-    \node[result, right=1.6cm of q2] (gemini) {\tool{Gemini 3.1 Pro}\\\tool{Claude 4.6} (200K / 1M)};
+    \node[result, right=1.6cm of q2] (gemini) {\tool{Gemini 3}\\\tool{Claude 4.6+} (1M)};
     \node[decision, below=0.75cm of q2] (q3) {Multi-step reasoning\\ / formal proof?};
-    \node[result, right=1.6cm of q3] (reason) {\tool{o3}/\tool{GPT-5.3-Codex}\\\tool{Claude Opus 4.6} (Thinking)};
+    \node[result, right=1.6cm of q3] (reason) {\tool{GPT-5.5} (Reasoning)\\\tool{Claude Opus 4.8} (Thinking)};
     \node[decision, below=0.75cm of q3] (q4) {Cost-sensitive\\ or high volume?};
-    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini 3.0 Flash}\\\tool{Claude Haiku 4.5}};
-    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Sonnet 4.6}\\\tool{GPT-5} / \tool{GPT-5.3-Codex}};
+    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini 3 Flash}\\\tool{Claude Haiku 4.5}};
+    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Sonnet 4.6}\\\tool{GPT-5.5}};
 
     \draw[arr] (q1.west)  -- (local.east)   node[lbl, above]{Yes};
     \draw[arr] (q1.south) -- (q2.north)     node[lbl, right]{No};
@@ -180,4 +221,4 @@ ollama run llama4-maverick
 \end{frame}
 
 % ---- Demo placeholder -----------------------------------------------
-\demoframe{Side-by-side model comparison — same research prompt in Claude Sonnet 4.6, GPT-5.3-Codex, and Llama 4 Maverick}
+\demoframe{Side-by-side model comparison — same research prompt in Claude Sonnet 4.6, GPT-5.5, and Llama 4 Maverick / Gemma 4}

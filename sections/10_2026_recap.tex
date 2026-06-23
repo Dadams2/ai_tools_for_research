@@ -1,0 +1,157 @@
+% ============================================================
+%  Section 10: 2026 Mini-Recap: The State of the Art
+% ============================================================
+
+\section{2026 Recap: State of the Art}
+
+% ---- Slide 1: 2026 Update: Models --------------------------
+\begin{frame}{2026 Update: Frontier Models}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Key Flagships}
+      \begin{itemize}
+        \item \tool{GPT-5.5}: Flagship anchor API; advanced reasoning configurations.
+        \item \tool{Claude Opus 4.8}: Unmatched instruction following and extended thinking budget.
+        \item \tool{Claude Sonnet 4.6}: The current gold standard for balanced speed, coding, and context.
+        \item \tool{Gemini 3}: Native multimodal processing over extreme-context inputs.
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Open-Weight Challengers}
+      \begin{itemize}
+        \item \tool{Gemma 4}: Designed for high-performance localized agent loops.
+        \item \tool{Kimi K2}: 1T-param mixture of experts (32B active parameters).
+        \item \tool{Qwen3.5}: Advanced 1M-context windows with native tool interaction.
+        \item \tool{Mistral Large 3}: Heavyweight open MoE model.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.6em}
+  \centering\tiny\textit{Note: All models are current as of June 2026. Verify leaderboards weekly.}
+\end{frame}
+
+% ---- Slide 2: Local AI Is Now Practical --------------------
+\begin{frame}[fragile]{Local AI Is Now Practical}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Local Agent Ecosystem}
+      \begin{itemize}
+        \item \tool{Gemma 4}: Laptop-optimized models executing native vision \& audio.
+        \item \tool{Llama 4 / Kimi K2}: Heavyweight local reasoning engines.
+        \item \tool{Mistral / Qwen}: Excellent local structured output.
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Local Tooling Pipelines}
+      \begin{itemize}
+        \item \tool{Ollama}: Standard local containerization.
+        \item \tool{LM Studio}: User-friendly desktop server.
+        \item \tool{vLLM} / \tool{llama.cpp}: Extreme performance localized inference.
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Typical Running Setup}
+      \begin{lstlisting}[language=bash, numbers=none, basicstyle=\ttfamily\tiny]
+# Pull Gemma 4 edge agent
+ollama pull gemma4:12b
+
+# Start private API endpoint
+vllm serve qwen3.5-plus --port 8000
+      \end{lstlisting}
+      \vspace{0.3em}
+      \begin{block}{The Local Edge}
+        Allows air-gapped drafting, private codebase refactoring, and zero running API cost on specialized academic hardware.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Slide 3: Harness Engineering --------------------------
+\begin{frame}{Harness Engineering: The New Agent Paradigm}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{What is the Harness?}
+      \begin{itemize}
+        \item The runtime harness orchestrates the model's interaction with tools, local state, and human feedback.
+        \item Shift: \textbf{Prompt} $\to$ \textbf{Context} $\to$ \textbf{Harness Engineering}.
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Core Architectural Components}
+      $$\text{Agent} = \text{Model} + \text{Harness} + \text{Tools} + \text{Memory}$$
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Emerging Harness Options}
+      \begin{itemize}
+        \item \tool{Codex CLI}: Standard OpenAI task loops.
+        \item \tool{LangGraph}: Graph-based checkpointing \& durable executions.
+        \item \tool{Pi}: Developer-focused hackable minimalistic loops.
+        \item \tool{OpenAI Agents SDK}: High-tracing hosted agents.
+        \item \tool{smolagents}: Minimal Hugging Face loops.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Slide 4: Persistent Agents and Memory -----------------
+\begin{frame}{Persistent Agents \& Memory Architectures}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Continuous Running Agents}
+      \begin{itemize}
+        \item \tool{OpenClaw}: Self-hosted chat-connected inbox, files, and schedule agent.
+        \item \tool{Hermes}: Memory-augmenting personal automation agent.
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Structured System Memory}
+      \begin{itemize}
+        \item \tool{Beads}: Persistent issue-tracking graphs.
+        \item \textbf{Skills Repository}: Growing bank of sub-skills compiled from past runs.
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{alertblock}{Persistent Memory Risks}
+        \begin{itemize}
+          \item \textbf{Prompt-Injection Persistence}: Poisoning memory to exploit subsequent runs.
+          \item \textbf{Privacy Gaps}: Accidental reuse or upload of sensitive earlier decisions.
+          \item \textbf{Stale Assumptions}: Codebase maps becoming mismatched with live files.
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Slide 5: Updated Cost & Governance --------------------
+\begin{frame}{Updated Cost \& Governance}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Current Pricing Frameworks}
+      \begin{itemize}
+        \item Commercial flags: GPT-5.5 (\$5/\$30), Sonnet 4.6 (\$3/\$15).
+        \item Local: Zero ongoing costs (only hardware amortisation).
+        \item Free Tiers: Capped GitHub Copilot Free and Cursor Hobby plans.
+      \end{itemize}
+      \vspace{0.4em}
+      \textbf{Token Optimization}
+      \begin{itemize}
+        \item Context compaction / summarizing old steps.
+        \item Setting rigid execution budget limits.
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Academic Governance}
+      \begin{itemize}
+        \item Strict data privacy policies regarding unpublished manuscripts.
+        \item Human approval gates for any file write / git action.
+        \item Transparent execution \& audit logs of all run loops.
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{block}{Governance Rule}
+        Auditability is paramount. Log all prompt and model traces for reproducibility.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}

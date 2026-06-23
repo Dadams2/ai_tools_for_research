@@ -75,12 +75,12 @@
 \end{frame}
 
 % ---- Prompting patterns ------------------------------------
-\begin{frame}{Prompting Patterns That Work}
+\begin{frame}{Prompting + Context Engineering Patterns}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.48\textwidth}
-      \begin{block}{Role Prompting}
-        \small\textit{``You are an expert in [domain] with 20 years of experience. Review the following methodology and identify weaknesses.''}\\[0.2em]
-        Sets tone, terminology, and depth of response.
+      \begin{block}{Role \& Context Engineering}
+        \small\textit{``Provide all source files, unit tests, strict constraints, and explicit acceptance criteria up front.''}\\[0.2em]
+        Excellent context design ensures the agent has the whole picture and doesn't hallucinate missing dependencies.
       \end{block}
       \vspace{0.4em}
       \begin{block}{Decomposition}
@@ -91,8 +91,8 @@
     \hfill
     \begin{column}{0.48\textwidth}
       \begin{block}{Reasoning Models}
-        \small\textit{``Think step by step. Show your reasoning before giving the final answer.''}\\[0.2em]
-        Dramatically improves multi-step math and logic~\parencite{wei2022cot}. Models like \model{o3}, \model{gpt-5.3-codex}, and \model{claude-opus-4-6} do this natively.
+        \small\textit{``Use a reasoning model / request a concise rationale.''}\\[0.2em]
+        Modern systems often hide chain-of-thought; demanding raw hidden CoT is less robust. Instead, request a clear, high-level rationale in outputs.
       \end{block}
       \vspace{0.4em}
       \begin{block}{Critique \& Revise}
@@ -111,9 +111,9 @@
       \begin{itemize}
         \item Internal ``thinking'' chain before the final answer
         \item Optimized for multi-step inference, not raw speed
-        \item \model{o3} / \model{gpt-5.3-codex}: OpenAI's reasoning and agentic coding models
-        \item \model{claude-opus-4-6} extended thinking: configurable thinking budget
-        \item \model{deepseek-v3.2}: open-weight reasoning model with competitive CoT
+        \item \model{gpt-5.5} (reasoning config): OpenAI's newest flagship capability anchor
+        \item \model{claude-opus-4-8} extended thinking: customizable reasoning budget
+        \item \model{deepseek-r1} / \model{kimi-k2-thinking}: powerful open-weight reasoning CoT
       \end{itemize}
     \end{column}
     \hfill
@@ -146,9 +146,9 @@
       \vspace{0.5em}
       \textbf{Current limits}\\[0.3em]
       \begin{itemize}
-        \item GPT-5 / GPT-5.3-Codex: 400K tokens $\approx$ 13--15 long papers
-        \item Claude 4.6 Sonnet: 200K tokens (1M beta) $\approx$ 7--8 long papers
-        \item Gemini 3.1 Pro: 1M tokens $\approx$ a whole library section
+        \item GPT-5.5 / Codex: 400K tokens $\approx$ 13--15 long papers
+        \item Claude Opus 4.8 / Sonnet 4.6: 1M tokens $\approx$ 30+ long papers
+        \item Gemini 3 / Gemini 3 Flash: 1M+ tokens $\approx$ a whole library section
       \end{itemize}
     \end{column}
     \hfill

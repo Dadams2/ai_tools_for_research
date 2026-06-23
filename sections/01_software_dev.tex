@@ -38,12 +38,14 @@
 \begin{frame}[shrink=5]{The Developer AI Tool Ecosystem}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.32\textwidth}
-      \textbf{IDE Integrations}\\[0.3em]
+      \textbf{Standalone Applications}\\[0.3em]
       \begin{itemize}
         \item \tool{GitHub Copilot} (VS Code, JetBrains, Vim)
         \item \tool{Cursor} (fork of VS Code)
-        \item \tool{Continue} (open-source, model-agnostic)
-        \item \tool{Google Antigravity} (agentic dev platform)
+        \item \tool{Codex} (agentic interface)
+        \item \tool{Claude Cowork} (chat and computer use)
+        \item \tool{Google Antigravity (v1/v2)} (agentic dev platform)
+        \item \sout{\tool{Continue}} (aquired by cursor)
       \end{itemize}
     \end{column}
     \hfill
@@ -51,10 +53,10 @@
       \textbf{Terminal / Agentic}\\[0.3em]
       \begin{itemize}
         \item \tool{Claude Code} (Anthropic CLI)
-        \item \tool{Aider} (git-aware CLI)
+        \item \tool{Codex} (OpenAI CLI)
+        \item \tool{agy} (Google CLI)
         \item \tool{OpenCode} (open-source terminal/IDE/desktop agent; 75+ LLM providers)
-        \item \tool{Devin} / \tool{SWE-agent} (full agents)
-        \item \tool{GPT-5.3-Codex} (agentic coding)
+        \item \tool{Pi} (minimal terminal agent)
       \end{itemize}
     \end{column}
     \hfill
@@ -109,51 +111,84 @@
 \end{frame}
 
 % ---- Adoption signals --------------------------------------
-\begin{frame}[shrink=12]{Adoption Signals}
+\begin{frame}[shrink=5]{Adoption Is High; Trust Is the Bottleneck}
   \begin{columns}[T, onlytextwidth]
-    \begin{column}{0.55\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[
-          width=\textwidth, height=4.2cm,
-          ybar, bar width=0.5cm,
-          symbolic x coords={2021,2022,2023,2024},
-          xtick=data,
-          ylabel={Copilot Users (millions)},
-          ymin=0, ymax=2,
-          nodes near coords,
-          nodes near coords align={vertical},
-          every node near coord/.append style={font=\tiny},
-          axis lines*=left,
-          ymajorgrids=true,
-          grid style={dashed, gray!30},
-          bar shift=0pt,
-          label style={font=\small},
-          tick label style={font=\small},
-        ]
-          \addplot[fill=mLightBrown!60] coordinates {
-            (2021, 0.4) (2022, 1.0) (2023, 1.3) (2024, 1.8)
-          };
-        \end{axis}
-      \end{tikzpicture}
-      \vspace{-0.5em}
-      \tiny Source: GitHub / various reports (approximate)
+    \begin{column}{0.48\textwidth}
+      \textbf{Stack Overflow Survey 2025}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item \textbf{84\%} of all respondents are using or planning to use AI tools, rising from 76\% in previous surveys.
+        \item \textbf{51\% of professional developers} now interact with AI coding assistants daily.
+        \item \alert{Trust is falling}: Only \textbf{29\% of developers} actually trust AI outputs in 2025, down 11 percentage points from 2024.
+      \end{itemize}
     \end{column}
     \hfill
-    \begin{column}{0.42\textwidth}
-      \textbf{StackOverflow Survey 2023}~\parencite{stackoverflow2023survey}\\[0.2em]
-      \begin{itemize}\setlength{\itemsep}{1pt}
-        \item 70\% of developers using or planning to use AI tools
-        \item Productivity \& learning cited as top benefits
-        \item Trust in AI output: biggest concern
+    \begin{column}{0.48\textwidth}
+      \textbf{GitHub Octoverse 2025}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item Over \textbf{1.1 million public repositories} on GitHub used or integrated with an LLM SDK.
+        \item \textbf{80\% of new developers} choose to use GitHub Copilot during their first week of onboarding.
       \end{itemize}
       \vspace{0.4em}
-      \textbf{GitHub Copilot study}~\parencite{github2023copilot}\\[0.2em]
-      \begin{itemize}\setlength{\itemsep}{1pt}
-        \item 55\% faster task completion in controlled study
-        \item Developers report more focus on satisfying work
-      \end{itemize}
+      \begin{block}{TLDR;}
+        The initial developer hype cycle has settled into a pragmatism gap: massive daily deployment is mismatched with low trust in silent errors.
+      \end{block}
     \end{column}
   \end{columns}
+  \vspace{0.6em}
+  \centering\tiny\textit{Sources: Stack Overflow Developer Survey 2025, GitHub Octoverse 2025 Reports.}
+\end{frame}
+
+% ---- AI coding products table ------------------------------
+\begin{frame}{AI Coding Tools: Product Landscape I}
+\centering
+\scriptsize
+\begin{tabular}{p{2.6cm} p{2.7cm} c c p{1.7cm} p{1.4cm}}
+\toprule
+\textbf{Product} & \textbf{Type} & \textbf{Open} & \textbf{BYOM} & \textbf{Price} & \textbf{Released} \\
+\midrule
+Cursor & Standalone IDE; Local/CLI; Cloud & -- & -- & \$0--200/mo & Mar 2023 \\
+Claude Code & IDE Ext.; Local/CLI; Cloud & -- & -- & \$20--200/mo & Feb 2025 \\
+GitHub Copilot Coding Agent & IDE Ext.; Cloud & -- & -- & \$0--39/mo & May 2025 \\
+Windsurf & Standalone IDE & -- & -- & \$0--200/mo & Nov 2024 \\
+Codex & IDE Ext.; Local/CLI; Cloud & -- & -- & \$0--200/mo & Apr 2025 \\
+Cline & IDE Ext.; Local/CLI & -- & -- & Free + API & Jul 2024 \\
+Devin & Cloud & -- & -- & \$20--500/mo & Mar 2024 \\
+Aider & Local/CLI & -- & -- & Free + API & Jun 2023 \\
+Google Antigravity & Standalone IDE & -- & -- & \$0--250/mo & Nov 2025 \\
+Roo Code & IDE Extension & -- & -- & Free + API & Nov 2024 \\
+Amazon Q Developer & IDE Ext.; Local/CLI & -- & -- & \$0--19/mo & Apr 2024 \\
+Gemini Code Assist & IDE Ext.; Local/CLI & -- & -- & \$0--45+/mo & Apr 2024 \\
+Continue & IDE Ext.; Local/CLI & Yes & Yes & \$0--20/mo & Jul 2023 \\
+OpenHands & Cloud & Yes & Yes & \$0--500/mo & Mar 2024 \\
+Zed & Standalone IDE & -- & -- & \$0--10/mo & Jan 2024 \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}{AI Coding Tools: Product Landscape II}
+\centering
+\scriptsize
+\begin{tabular}{p{2.6cm} p{2.7cm} c c p{1.7cm} p{1.4cm}}
+\toprule
+\textbf{Product} & \textbf{Type} & \textbf{Open} & \textbf{BYOM} & \textbf{Price} & \textbf{Released} \\
+\midrule
+Augment Code & IDE Ext.; Local/CLI & -- & -- & \$20--200/mo & Apr 2024 \\
+Amp & IDE Ext.; Local/CLI & -- & -- & Free + API & May 2025 \\
+Kiro & Standalone IDE; Local/CLI & -- & -- & \$0--200/mo & Jul 2025 \\
+Jules & Cloud & -- & -- & \$0--250/mo & May 2025 \\
+Gemini CLI & Local/CLI & -- & Yes & Free + API & Jun 2025 \\
+Goose & Local/CLI & Yes & Yes & Free + API & Jan 2025 \\
+Warp 2.0 & Local/CLI & -- & -- & \$0--200/mo & Jun 2025 \\
+Genie & Cloud & -- & -- & \$0--99/mo & Aug 2024 \\
+Manus & Cloud & -- & -- & \$0--199/mo & Mar 2025 \\
+Mistral Vibe & IDE Ext.; Local/CLI & -- & -- & \$0--50/mo & Jun 2025 \\
+opencode & IDE Ext.; Local/CLI & Yes & Yes & Free + API & Jun 2025 \\
+Qoder & Standalone IDE & -- & -- & \$0--100/mo & Aug 2025 \\
+Qwen Code & Local/CLI & Yes & Yes & Free + API & Jul 2025 \\
+Kimi CLI & IDE Ext.; Local/CLI & -- & Yes & Free + API & Oct 2025 \\
+BLACKBOX & IDE Ext.; IDE; CLI; Cloud & -- & -- & \$10--40/mo & Sep 2022 \\
+\bottomrule
+\end{tabular}
 \end{frame}
 
 % ---- Demo placeholder -------------------------------------

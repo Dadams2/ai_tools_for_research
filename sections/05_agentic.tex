@@ -207,22 +207,100 @@
   \end{columns}
 \end{frame}
 
+% ---- Harness Engineering Slide ---------------------------
+\begin{frame}{Ecosystem Shift: Prompt $\to$ Context $\to$ Harness Engineering}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{The Harness as Core Object}\\
+      The model is only one part of an agent. The \textbf{harness} controls:
+      \begin{itemize}
+        \item Tool access \& execution permissions
+        \item Short-term \& summary memory
+        \item Context compaction / token control
+        \item Evaluation \& telemetry logging
+        \item Multi-agent handoffs / orchestration
+      \end{itemize}
+      \vspace{0.3em}
+      \textbf{Loop Engineering}:
+      \begin{itemize}
+        \item Run repeated build-test-fix loops autonomously
+        \item Automated benchmark execution loops
+        \item Specialized peer-reviewer loops
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Foundational Cases / Workflows}
+      \begin{itemize}
+        \item \textbf{OpenAI's Codex CLI Technical Guidance}: Describes the harness as the agent loop orchestrating user, model, and tools.
+        \item \textbf{LangGraph}: Positions itself as an orchestration runtime for streaming, multi-agent coordination, and persistence.
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{block}{Harness over Model}
+        \small For research workflows, the harness matters as much as the model: it determines what gets remembered, what tools are safe to call, what gets retried, and what evidence is logged.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ---- Popular agent harnesses ------------------------------
 \begin{frame}{Popular Agent Harnesses (2026)}
-  \small
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.21\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} X}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.18\textwidth} >{\raggedright\arraybackslash}p{0.32\textwidth} X}
     \toprule
     \textbf{Harness} & \textbf{Strength} & \textbf{Good fit for research} \\
     \midrule
-    \tool{LangGraph} (LangChain) & Durable graph/state-machine workflows & Multi-step pipelines with checkpoints, retries, and human approval gates. \\
-    \tool{Microsoft AutoGen} & Multi-agent conversation patterns & Role-specialized agents (planner, coder, critic, writer) collaborating on one task. \\
-    \tool{CrewAI} & Fast role-based orchestration & Lightweight team-style workflows for literature and reporting tasks. \\
+    \tool{LangGraph} (LC) & Durable graph, persistence, Deep Agents & Complex pipelines with checkpoints, retries, and human approval gates. \\
+    \tool{Pi} & Minimal, hackable; packageable skills/extensions & Researchers who want to customize/inspect the loop over using heavy frameworks. \\
+    \tool{smolagents} (HF) & Minimal HF library, executable Python code & Quick prototypes and tool loops in a few lines of code. \\
     \tool{OpenAI Agents SDK} & Tool-first hosted agents & Strong when your stack is already centered on OpenAI tools and tracing. \\
-    \tool{smolagents} (HF) & Minimal Python API & Quick prototypes for local/open models and simple tool loops. \\
+    \tool{CrewAI} / AutoGen & Multi-agent conversation/role patterns & Lightweight team-style or role-collaborative (planner, coder, critic) workflows. \\
     \bottomrule
   \end{tabularx}
   \vspace{0.4em}
-  \textbf{Selection heuristic:} pick by \emph{control model} (graph vs chat loop), \emph{observability}, \emph{human-in-the-loop support}, and \emph{deployment constraints}.
+  \normalsize
+  \textbf{Selection heuristic:} pick by \emph{control model} (graph vs minimal loop), \emph{observability}, \emph{human-in-the-loop support}, and \emph{customizability}.
+\end{frame}
+
+% ---- Agent Memory Slide ----------------------------------
+\begin{frame}{Agent Memory Is Not Just ``Bigger Context''}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Three Memory Patterns}\\[0.3em]
+      \begin{itemize}
+        \item \textbf{Context Compaction}: Dynamically summarizing old interactions or compressing raw text to fit the attention window.
+        \item \textbf{Project Memory}: File-based repo context, such as \texttt{CLAUDE.md}, repository maps, local notes, and current task state.
+        \item \textbf{Structured Memory Graphs}: e.g., \tool{Beads} (VirtusLab), which provides persistent, structured issue-tracking memory and replaces flat markdown plans with a dependency-aware graph across model restarts.
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Portable Agent Memory}\\[0.3em]
+      Citing emerging research proposing structured memory transfer across heterogeneous agents with provenance and fine-grained access control.
+      \vspace{0.4em}
+      \begin{alertblock}{Warning: The Memory Trade-off}
+        Memory increases continuity, but also increases \textbf{privacy risk, stale code assumptions, prompt-injection persistence}, and the \textbf{accidental reuse of wrong decisions}.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Persistent Agents Slide -----------------------------
+\begin{frame}{Persistent Agents: Beyond the IDE}
+  \small
+  \begin{tabularx}{\textwidth}{p{0.22\textwidth} X}
+    \toprule
+    \textbf{System} & \textbf{Capabilities \& Focus} \\
+    \midrule
+    \tool{OpenClaw} & Self-hosted personal agent controlled from chat apps; manages email, calendar, files, and tools. Strong data-sovereignty story, but high security risk if over-permissioned (clears inboxes, sends mail). \\
+    \midrule
+    \tool{Hermes Agent} (Nous Research) & Self-hosted agent with persistent memory and skill creation. An agent that ``grows with you,'' creates new skills from experience, and searches past conversations. \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.6em}
+  \begin{alertblock}{Key Practice Lesson}
+    Persistent operational agents require strict \textbf{permission boundaries, detailed audit logs, memory hygiene}, and \textbf{failsafe revocation controls} to prevent runaway processes or security breaches.
+  \end{alertblock}
 \end{frame}
 
 % ---- Current limitations -----------------------------------
@@ -250,7 +328,7 @@
   \textbf{Best practice:} Use agents for \emph{reversible, low-stakes} tasks. Build in checkpoints for irreversible actions.
   \vspace{0.4em}
 
-  \textbf{Progress note (early 2026):} Coding agents have improved dramatically. SWE-agent v1.0 resolves $\sim$65\% of SWE-bench Verified issues; Claude Opus 4.6 (Thinking) reaches 80.9\%; GPT-5.3-Codex achieves 77.3\% on Terminal-Bench 2.0 and 56.8\% on SWE-Bench Pro. Human oversight remains essential for production code.
+  \textbf{Progress note (early 2026):} Coding agents have improved dramatically. SWE-agent v1.07 resolves $\sim$68\% of SWE-bench Verified issues; Claude Opus 4.8 (Thinking) reaches 83.1\%; GPT-5.5 achieves 79.5\% on Terminal-Bench 2.0 and 59.4\% on SWE-Bench Pro. Human oversight remains essential for production code. \textit{(As of June 2026)}
 \end{frame}
 
 % ---- Demo idea -------------------------------------------------------
