@@ -1,0 +1,230 @@
+% ============================================================
+%  Section 6: Evaluating and Testing LLM Workflows
+% ============================================================
+
+\section{Evaluating \& Testing LLM Workflows}
+
+% ---- Benchmarks are not rankings ---------------------------
+\begin{frame}{Benchmarks Are Not Universal Rankings}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \textbf{What public scores actually measure}\\[0.3em]
+      \begin{itemize}
+        \item Model weights and reasoning mode
+        \item Prompting and system instructions
+        \item Tool access, sandbox, and retry budget
+        \item Harness design and task distribution
+        \item Scoring rule and hidden failure policy
+      \end{itemize}
+      \vspace{0.4em}
+      Leaderboards are useful context, not a decision rule.
+    \end{column}
+    \hfill
+    \begin{column}{0.44\textwidth}
+      \begin{alertblock}{Common mistake}
+        Treating a one-number score as ``model A is better than model B'' for your workflow.
+      \end{alertblock}
+      \vspace{0.4em}
+      \begin{block}{Better question}
+        Which model+harness combination succeeds on \emph{my} tasks at acceptable cost, latency, and verification effort?
+      \end{block}
+      \vspace{0.2em}
+      \tiny Related: SWE-Bench~\parencite{jimenez2024swebench}, BIG-bench~\parencite{srivastava2022bigbench}, HELM~\parencite{liang2022holistic}.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Variance ----------------------------------------------
+\begin{frame}{Show the Distribution}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.50\textwidth}
+      \textbf{LLM evaluation is noisy}\\[0.3em]
+      \begin{itemize}
+        \item Same task, same model, different run: different answer
+        \item Different tasks can reverse model rankings
+        \item More reasoning effort can improve, waste tokens, or make results worse
+        \item A single impressive run is weak evidence
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.46\textwidth}
+      \begin{block}{Report at least}
+        \begin{itemize}
+          \item Success rate over repeated runs
+          \item Cost and wall-clock time
+          \item Failure categories
+          \item Median and spread, not just best run
+        \end{itemize}
+      \end{block}
+      \vspace{0.3em}
+      \begin{alertblock}{Rule of thumb}
+        If $n=1$, call it a demo, not an eval.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Evidence artifacts ------------------------------------
+\begin{frame}{Evidence Artifacts Must Test the Real System}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \textbf{Agents can fabricate convincing proof}\\[0.3em]
+      \begin{itemize}
+        \item A plausible explanation is not a reproduction
+        \item A generated test may only test the agent's assumption
+        \item A screenshot or video can come from the wrong environment
+        \item A passing check can hide mocked or bypassed behavior
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.44\textwidth}
+      \begin{block}{Require provenance}
+        \begin{itemize}
+          \item Real checkout / container
+          \item Exact command and seed
+          \item Logs linked to the tested path
+          \item Browser/UI artifacts from the production-like environment
+          \item Clean rerun from scratch
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Testing heavy thesis ----------------------------------
+\begin{frame}{Testing Beats Asking the Model to Be Careful}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Weak prompt}\\[0.3em]
+      \begin{quote}
+        \small ``Write tests for this.''
+      \end{quote}
+      \vspace{0.4em}
+      Typically produces shallow happy-path examples that help code review more than bug finding.
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \textbf{Stronger prompt}\\[0.3em]
+      \begin{quote}
+        \small Identify invariants, generate randomized inputs, minimize any failing case, and add the failing seed to regression tests.
+      \end{quote}
+      \vspace{0.4em}
+      This turns the agent into test scaffolding around an executable check.
+    \end{column}
+  \end{columns}
+  \vspace{0.5em}
+  \begin{block}{Core thesis}
+    LLMs are leveraged for testing, but mostly because they make it cheap to build and run test processes, not because default generated tests are good.
+  \end{block}
+\end{frame}
+
+% ---- Fuzzing loop ------------------------------------------
+\begin{frame}[shrink=6]{A Minimal Randomized Testing Loop}
+  \centering
+  \begin{tikzpicture}[
+    node distance=0.52cm,
+    box/.style={draw, rounded corners=3pt, fill=mLightBrown!15,
+                minimum width=3.3cm, minimum height=0.5cm,
+                align=center, font=\small},
+    arr/.style={-{Stealth[length=4pt]}, thick, mLightBrown},
+  ]
+    \node[box] (inv) {1. State invariants};
+    \node[box, below=of inv] (gen) {2. Generate random cases};
+    \node[box, below=of gen] (run) {3. Run real code};
+    \node[box, below=of run] (min) {4. Minimize failures};
+    \node[box, below=of min] (reg) {5. Save seed as regression};
+    \node[box, below=of reg] (fix) {6. Fix root cause};
+
+    \draw[arr] (inv.south) -- (gen.north);
+    \draw[arr] (gen.south) -- (run.north);
+    \draw[arr] (run.south) -- (min.north);
+    \draw[arr] (min.south) -- (reg.north);
+    \draw[arr] (reg.south) -- (fix.north);
+    \draw[arr] (fix.east) -- ++(1.0,0) |- (gen.east)
+      node[pos=0.15, right, font=\tiny]{more cases};
+  \end{tikzpicture}
+  \vspace{0.25em}
+
+  \small Use this for parsers, planners, data transforms, metric code, citation extraction, and any pipeline with checkable invariants.
+\end{frame}
+
+% ---- False positives ---------------------------------------
+\begin{frame}{False Positive Rejection Is Part of the System}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \textbf{Before trusting an agent-found bug}\\[0.3em]
+      \begin{enumerate}
+        \item Rerun from a clean checkout
+        \item Remove mocks unless they are the subject
+        \item Ask an independent verifier to reproduce
+        \item Ask a contrarian verifier to disprove
+        \item Reduce to the smallest failing case
+      \end{enumerate}
+    \end{column}
+    \hfill
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Human review packet}
+        \begin{itemize}
+          \item One-sentence claim
+          \item Exact command / seed
+          \item Expected vs observed result
+          \item Minimal repro artifact
+          \item Why this is not a test bug
+        \end{itemize}
+      \end{block}
+      \vspace{0.2em}
+      \small Independent perspectives are cheap; false positives are expensive.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Research mini evals -----------------------------------
+\begin{frame}[shrink=5]{Build Tiny Evals for Your Research Workflow}
+  \small
+  \begin{tabularx}{\textwidth}{p{0.26\textwidth} X X}
+    \toprule
+    \textbf{Workflow} & \textbf{Check} & \textbf{Failure to catch} \\
+    \midrule
+    Citation search & DOI/venue exists; paper supports claim & Fabricated or irrelevant citations \\
+    LaTeX writing & Compile succeeds; labels resolve & Plausible but broken document edits \\
+    Benchmark summary & Recompute stats from CSV & Narrative contradicts data \\
+    Data analysis & Impossible-value and denominator checks & Pretty plots with invalid conclusions \\
+    Planning / code demos & Validate output with domain checker & Agent reports success without a valid plan \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{0.35em}
+  \begin{block}{Demo option}
+    Reuse the benchmark-summary demo: run the same agent prompt several times, recompute the numbers independently, and compare errors, cost, and latency.
+  \end{block}
+\end{frame}
+
+% ---- Practical workflow ------------------------------------
+\begin{frame}{Practical Evaluation Workflow}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.50\textwidth}
+      \textbf{For a new LLM-assisted workflow}\\[0.3em]
+      \begin{enumerate}
+        \item Define the real task and acceptance criteria
+        \item Create 5--20 representative cases
+        \item Add executable checks where possible
+        \item Run multiple trials per model/harness
+        \item Inspect failures and add regression cases
+      \end{enumerate}
+    \end{column}
+    \hfill
+    \begin{column}{0.46\textwidth}
+      \textbf{Log enough to reproduce}\\[0.3em]
+      \begin{itemize}
+        \item Model, date, reasoning mode
+        \item Prompt and context source
+        \item Tool permissions and environment
+        \item Cost, latency, and retries
+        \item Artifacts: logs, outputs, seeds
+      \end{itemize}
+      \vspace{0.4em}
+      \begin{alertblock}{Default stance}
+        Trust the process you can rerun, not the answer you like.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+\end{frame}

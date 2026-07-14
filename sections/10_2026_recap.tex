@@ -9,17 +9,18 @@
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.48\textwidth}
       \textbf{Key Flagships}
-      \begin{itemize}
-        \item \tool{GPT-5.5}: Flagship anchor API; advanced reasoning configurations.
-        \item \tool{Claude Opus 4.8}: Unmatched instruction following and extended thinking budget.
-        \item \tool{Claude Sonnet 4.6}: The current gold standard for balanced speed, coding, and context.
-        \item \tool{Gemini 3}: Native multimodal processing over extreme-context inputs.
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item \tool{GPT-5.6 Sol}: Flagship; \texttt{max} reasoning and \texttt{ultra} multi-agent mode.
+        \item \tool{Claude Fable 5}: Mythos-class model; safeguards can fall back to Opus 4.8.
+        \item \tool{GPT-5.6 Terra}: Balanced everyday-work tier.
+        \item \tool{GPT-5.6 Luna}: Fastest, most affordable tier.
+        \item \tool{Gemini 3}: Native multimodal, extreme-context processing.
       \end{itemize}
     \end{column}
     \hfill
     \begin{column}{0.48\textwidth}
       \textbf{Open-Weight Challengers}
-      \begin{itemize}
+      \begin{itemize}\setlength{\itemsep}{1pt}
         \item \tool{Gemma 4}: Designed for high-performance localized agent loops.
         \item \tool{Kimi K2}: 1T-param mixture of experts (32B active parameters).
         \item \tool{Qwen3.5}: Advanced 1M-context windows with native tool interaction.
@@ -28,7 +29,28 @@
     \end{column}
   \end{columns}
   \vspace{0.6em}
-  \centering\tiny\textit{Note: All models are current as of June 2026. Verify leaderboards weekly.}
+  \centering\tiny\textit{Updated 14 July 2026. Benchmark results are vendor-reported and configuration-dependent.}
+\end{frame}
+
+% ---- Slide 2: Latest Frontier Benchmark Snapshot ----------
+\begin{frame}{Latest Frontier Benchmark Snapshot}
+  \small
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    \textbf{Evaluation} & \textbf{GPT-5.6 Sol} & \textbf{Claude Fable 5} \\
+    \midrule
+    Agents' Last Exam & 52.7\% & 40.5\% \\
+    Artificial Analysis Coding Agent Index & 80.0 & 77.2 \\
+    SWE-Bench Pro & 64.6\% & 80.0\% \\
+    Terminal-Bench 2.1 & 88.8\% & 83.1\% \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.8em}
+  \begin{block}{How to read this}
+    Scores are not a universal ranking: they vary with reasoning effort, tools, and harness. Use task-specific evaluations before choosing a model.
+  \end{block}
+  \centering\tiny Sources: \href{https://openai.com/index/gpt-5-6/}{OpenAI GPT-5.6 release (9 Jul 2026)}; \href{https://www.anthropic.com/news/claude-fable-5-mythos-5}{Anthropic Fable 5 launch (9 Jun 2026)}.
 \end{frame}
 
 % ---- Slide 2: Local AI Is Now Practical --------------------
@@ -129,7 +151,7 @@ vllm serve qwen3.5-plus --port 8000
     \begin{column}{0.48\textwidth}
       \textbf{Current Pricing Frameworks}
       \begin{itemize}
-        \item Commercial flags: GPT-5.5 (\$5/\$30), Sonnet 4.6 (\$3/\$15).
+        \item Commercial flags: GPT-5.6 Sol (\$5/\$30), Terra (\$2.50/\$15), Luna (\$1/\$6), Fable 5 (\$10/\$50).
         \item Local: Zero ongoing costs (only hardware amortisation).
         \item Free Tiers: Capped GitHub Copilot Free and Cursor Hobby plans.
       \end{itemize}

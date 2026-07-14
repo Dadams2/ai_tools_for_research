@@ -11,10 +11,8 @@
     \toprule
     \textbf{Model} & \textbf{Context} & \textbf{Pricing (per 1M input / output)} & \textbf{Status / Source} & \textbf{Open Weight} \\
     \midrule
-    \tool{GPT-5.5}            & 400K & \$5.00 / \$30.00\textsuperscript{\(\dagger\)} & Official API Docs & No \\
-    \tool{Claude Opus 4.8}    & 1M   & (TBD) & Official API Docs & No \\
-    \tool{Claude Sonnet 4.6}  & 1M   & \$3.00 / \$15.00  & Official API Docs & No \\
-    \tool{Claude Haiku 4.5}   & 200K & [\model{Pricing TBD}] & Official API Docs & No \\
+    \tool{GPT-5.6 Sol}        & 1M   & \$5.00 / \$30.00\textsuperscript{\(\dagger\)} & OpenAI release & No \\
+    \tool{Claude Fable 5}      & 1M+  & \$10.00 / \$50.00 & Anthropic release & No \\
     \tool{Gemini 3}           & 1M+  & Variant & Developer Announcement & No \\
     \tool{Gemini 3 Flash}     & 1M+  & \$0.50 / \$3.00   & Developer Announcement & No \\
     \tool{Gemma 4 12B}        & 128K & Laptop-optimized & Google Edge Release & \checkmark \\
@@ -22,7 +20,7 @@
     \bottomrule
   \end{tabularx}
   \vspace{0.4em}
-  {\tiny\textbf{Note:} \textsuperscript{\(\dagger\)}Cached input: \$0.50. Prices, context windows, and model names change frequently; verify before teaching. All details as of June 2026.}
+  {\tiny\textbf{Note:} \textsuperscript{\(\dagger\)}Cached input: \$0.50. Prices, context windows, and model names change frequently; verify before teaching. All details as of July 2026.}
 
   \begin{itemize}
     \item \textbf{Capability gap is shrinking} — open-weight models are increasingly competitive
@@ -39,23 +37,19 @@
 \textbf{Model} & \textbf{Provider} & \textbf{Open} & \textbf{Status} & \textbf{Mode} & \textbf{Ctx.} & \textbf{Price} & \textbf{Score} \\
 \midrule
 Claude Mythos 5 & Anthropic & No & Current & Reasoning & 1M+ & \$10 / \$50 & 99 \\
-Claude Fable 5 & Anthropic & No & Current & Reasoning & 1M+ & \$10 / \$50 & 95 \\
-Claude Opus 4.8 & Anthropic & No & Current & Reasoning & 1M & \$5 / \$25 & 93 \\
+Claude Fable 5 & Anthropic & No & Current & Reasoning & 1M+ & \$10 / \$50 & 77.2* \\
+GPT-5.6 Sol & OpenAI & No & Current & Reasoning & 1M & \$5 / \$30 & 80.0* \\
 GLM-5.2 & Z.AI & Yes & Current & Reasoning & 1M & \$1.40 / \$4.40 & 91 \\
 Qwen3.7 Max & Alibaba & No & Current & Reasoning & 1M & N/A & 90 \\
-GPT-5.4 Pro & OpenAI & No & Current & Reasoning & 1.05M & \$30 / \$180 & 90 \\
 Gemini 3.1 Pro & Google & No & Current & Standard & 1M & \$2 / \$12 & 89 \\
 Gemini 3 Pro Deep Think & Google & No & Current & Reasoning & 2M & N/A & $\sim$89 \\
 Grok 4.1 & xAI & No & Superseded & Standard & 1M & N/A & $\sim$89 \\
-GPT-5.4 & OpenAI & No & Superseded & Reasoning & 1.05M & \$2.50 / \$15 & 88 \\
 DeepSeek V4 Pro Max & DeepSeek & Yes & Current & Reasoning & 1M & \$1.74 / \$3.48 & 88 \\
-GPT-5.5 & OpenAI & No & Current & Reasoning & 1M & \$5 / \$30 & 87 \\
-Claude Opus 4.6 & Anthropic & No & Superseded & Standard & 1M & \$5 / \$25 & 86 \\
 \bottomrule
 \end{tabular}
 
 \vspace{0.4em}
-{\tiny Price shown as input / output per 1M tokens where available.}
+{\tiny Price shown as input / output per 1M tokens where available. *Artificial Analysis Coding Agent Index v1.1.}
 \end{frame}
 
 \begin{frame}[shrink=5]{LLM Comparison: Current Frontier Models II}
@@ -67,14 +61,9 @@ Claude Opus 4.6 & Anthropic & No & Superseded & Standard & 1M & \$5 / \$25 & 86 
 \midrule
 Gemini 3.5 Flash & Google & No & Current & Reasoning & 1M & \$1.50 / \$9 & 86 \\
 Qwen3.7 Plus & Alibaba & No & Current & Reasoning & 1M & N/A & 85 \\
-GPT-5.3 Codex & OpenAI & No & Current & Reasoning & 400K & \$1.75 / \$14 & $\sim$85 \\
-Claude Opus 4.7 Adaptive & Anthropic & No & Superseded & Reasoning & 1M & \$5 / \$25 & 84 \\
 DeepSeek V4 Pro High & DeepSeek & Yes & Current & Reasoning & 1M & \$1.74 / \$3.48 & 83 \\
-Claude Sonnet 4.6 & Anthropic & No & Current & Standard & 200K & \$3 / \$15 & 82 \\
-o1-preview & OpenAI & No & Superseded & Reasoning & 200K & \$15 / \$60 & $\sim$82 \\
 Kimi K2.6 & Moonshot AI & Yes & Superseded & Reasoning & 256K & \$0.95 / \$4 & 81 \\
 Gemini 3 Pro & Google & No & Established & Standard & 2M & \$2 / \$12 & 80 \\
-GPT-5.2 & OpenAI & No & Established & Reasoning & 400K & \$1.75 / \$14 & 79 \\
 GLM-5 Reasoning & Z.AI & Yes & Current & Reasoning & 200K & \$1 / \$3.20 & $\sim$79 \\
 MiniMax M3 & MiniMax & Yes & Current & Standard & 1M & \$0.30 / \$1.20 & 78 \\
 \bottomrule
@@ -93,7 +82,7 @@ MiniMax M3 & MiniMax & Yes & Current & Standard & 1M & \$0.30 / \$1.20 & 78 \\
           \item Fast, conversational, general-purpose
           \item Strong instruction following
           \item \textbf{Best for:} writing, summarization,\newline Q\&A, coding assistance
-          \item \textit{Examples:} \model{claude-sonnet-4-6}, \model{claude-haiku-4-5},\newline \model{gpt-5.5}, \model{gemini-3-flash}
+          \item \textit{Examples:} \model{claude-fable-5}, \model{gpt-5.6-sol},\newline \model{gemini-3-flash}
         \end{itemize}
       \end{block}
     \end{column}
@@ -104,7 +93,7 @@ MiniMax M3 & MiniMax & Yes & Current & Standard & 1M & \$0.30 / \$1.20 & 78 \\
           \item Slower; internally ``thinks'' before responding
           \item Better at multi-step logical problems
           \item \textbf{Best for:} math proofs, algorithm design,\newline complex debugging, formal reasoning
-          \item \textit{Examples:} \model{gpt-5.5} (reasoning config),\newline \model{claude-opus-4-8} (extended thinking),\newline \model{kimi-k2-thinking}, \model{deepseek-r1}
+          \item \textit{Examples:} \model{gpt-5.6-sol} (\texttt{max}),\newline \model{claude-fable-5}, \model{kimi-k2-thinking}, \model{deepseek-r1}
         \end{itemize}
       \end{block}
     \end{column}
@@ -144,7 +133,7 @@ MiniMax M3 & MiniMax & Yes & Current & Standard & 1M & \$0.30 / \$1.20 & 78 \\
           \addplot[fill=teal!50] coordinates {
             (65,SWEBench) (85,HumanEval) (87,MMLU)
           };
-        \legend{Claude Opus 4.8, GPT-5.5, Gemini 3}
+        \legend{Claude Fable 5, GPT-5.6 Sol, Gemini 3}
         \end{axis}
       \end{tikzpicture}
       \tiny Approximate/illustrative figures (As of June 2026).
@@ -201,7 +190,7 @@ MiniMax M3 & MiniMax & Yes & Current & Standard & 1M & \$0.30 / \$1.20 & 78 \\
     \end{column}
   \end{columns}
   \vspace{0.4em}
-  \centering\tiny\textit{All models updated as of June 2026.}
+  \centering\tiny\textit{All models updated as of July 2026.}
 \end{frame}
 
 % ---- Open-weight models ------------------------------------
@@ -258,10 +247,10 @@ ollama run gemma4:12b
     \node[decision, below=0.75cm of q1] (q2) {Needs long context\\(\textgreater 64K tokens)?};
     \node[result, right=1.6cm of q2] (gemini) {\tool{Gemini 3}\\\tool{Claude 4.6+} (1M)};
     \node[decision, below=0.75cm of q2] (q3) {Multi-step reasoning\\ / formal proof?};
-    \node[result, right=1.6cm of q3] (reason) {\tool{GPT-5.5} (Reasoning)\\\tool{Claude Opus 4.8} (Thinking)};
+    \node[result, right=1.6cm of q3] (reason) {\tool{GPT-5.6 Sol} (\texttt{max})\\\tool{Claude Fable 5}};
     \node[decision, below=0.75cm of q3] (q4) {Cost-sensitive\\ or high volume?};
-    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini 3 Flash}\\\tool{Claude Haiku 4.5}};
-    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Sonnet 4.6}\\\tool{GPT-5.5}};
+    \node[result, right=1.6cm of q4] (cheap) {\tool{Gemini 3 Flash}\\\tool{GPT-5.6 Luna}};
+    \node[result, below=0.7cm of q4]  (general) {\tool{Claude Fable 5}\\\tool{GPT-5.6 Sol}};
 
     \draw[arr] (q1.west)  -- (local.east)   node[lbl, above]{Yes};
     \draw[arr] (q1.south) -- (q2.north)     node[lbl, right]{No};
@@ -275,4 +264,4 @@ ollama run gemma4:12b
 \end{frame}
 
 % ---- Demo placeholder -----------------------------------------------
-\demoframe{Side-by-side model comparison — same research prompt in Claude Sonnet 4.6, GPT-5.5, and Llama 4 Maverick / Gemma 4}
+\demoframe{Side-by-side model comparison — same research prompt in Claude Fable 5, GPT-5.6 Sol, and Llama 4 Maverick / Gemma 4}

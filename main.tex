@@ -165,6 +165,7 @@
 \input{sections/03_chat_reasoning}
 \input{sections/04_coding_assistants}
 \input{sections/05_agentic}
+\input{sections/06_eval_testing}
 \input{sections/06_literature}
 \input{sections/07_writing}
 \input{sections/08_caveats}
@@ -248,7 +249,7 @@ copilot-api start --proxy-env
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:4141",
     "ANTHROPIC_AUTH_TOKEN": "sk-dummy",
-    "ANTHROPIC_MODEL": "claude-sonnet-4.5",
+    "ANTHROPIC_MODEL": "claude-fable-5",
     "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
   }
 }
@@ -256,7 +257,7 @@ copilot-api start --proxy-env
 
   \textbf{Step 4 — Run Claude Code}\\[0.1em]
   Open a new terminal and run \texttt{claude}.
-  Available models include \model{claude-opus-4}, \model{gemini-2.5-pro}, \model{o3}, and more.
+  Available models include \model{claude-fable-5}, \model{gpt-5.6-sol}, \model{gemini-3.1-pro}, and more.
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}

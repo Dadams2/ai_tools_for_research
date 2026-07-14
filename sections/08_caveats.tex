@@ -55,7 +55,7 @@
       \vspace{0.3em}
       \textbf{Best practices}~\parencite{pineau2021reproducibility}\\[0.2em]
       \begin{itemize}
-        \item \textbf{Pin model versions} in your methods: \model{claude-sonnet-4-6-20260217}
+        \item \textbf{Pin model versions} in your methods: \model{claude-fable-5}
         \item \textbf{Log all prompts} used in the research process
         \item \textbf{Declare AI use} in acknowledgments / methods
         \item Archive prompts in supplementary materials
@@ -71,7 +71,7 @@
       \begin{lstlisting}[language=python, numbers=none, basicstyle=\ttfamily\scriptsize]
 import json, datetime
 log = {
-  "model": "claude-sonnet-4-6-20260217",
+  "model": "claude-fable-5",
   "date": str(datetime.date.today()),
   "task": "related work drafting",
   "prompt": prompt_text,
@@ -96,7 +96,7 @@ json.dump(log, open("ai_log.json","a"))
       \vspace{0.3em}
       \textbf{Terms of service}\\[0.2em]
       \begin{itemize}
-        \item Commercial tools (GPT-5, Claude) may use inputs for model improvement (check ToS)
+        \item Commercial tools (GPT-5.6, Claude Fable 5) may use inputs for model improvement (check ToS)
         \item Enterprise / API tiers often have stronger privacy guarantees
         \item Institutional licenses may have different terms
       \end{itemize}}
@@ -188,7 +188,7 @@ json.dump(log, open("ai_log.json","a"))
 \end{frame}
 
 % ---- Agentic Security Slide ------------------------------
-\begin{frame}{Security in Agentic Systems: Critical Risks}
+\begin{frame}[shrink=15]{Security in Agentic Systems: Critical Risks}
   \begin{columns}[T, onlytextwidth]
     \begin{column}{0.48\textwidth}
       \textbf{Key Threat Verticals}
@@ -196,6 +196,7 @@ json.dump(log, open("ai_log.json","a"))
         \item \textbf{Indirect Prompt Injection}: Malicious inputs in raw sources (emails, papers, GitHub issues) override agent instructions, executing unauthorized commands.
         \item \textbf{Over-Permissioned Tools}: Providing write, delete, or executables (e.g. bash) access without constraints is highly risky.
         \item \textbf{Credential Leaks}: Agent logs or context dumps accidentally printing API keys, environment variables, or private SSH keys.
+        \item \textbf{Trust the Harness}: Trust the client and MCP tools you grant access. A \href{https://thereallo.dev/blog/claude-code-prompt-steganography\#marker}{2026 Claude Code analysis} reported subtle prompt markers tied to a custom API URL and timezone.
       \end{itemize}
     \end{column}
     \hfill

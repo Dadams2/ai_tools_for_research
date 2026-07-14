@@ -83,7 +83,7 @@
         \item \textbf{Cloud Agents}: run code, generate merge-ready PRs with video logs
         \item \textbf{Codebase indexing}: semantic search over entire repo
         \item \textbf{@-mentions}: reference specific files, docs, web in prompts
-        \item Supports multiple backends: Claude Sonnet 4.6, GPT-5.5, local
+        \item Supports multiple backends: Claude Fable 5, GPT-5.6 Sol, local
         \item VS Code fork — full extension compatibility
       \end{itemize}
       \vspace{0.4em}
@@ -181,7 +181,7 @@ claude
         \end{itemize}
         \begin{lstlisting}[language=bash, numbers=none]
 pip install aider-chat
-aider --model claude-sonnet-4-6
+aider --model claude-fable-5
         \end{lstlisting}
       \end{block}
     \end{column}
@@ -198,7 +198,7 @@ aider --model claude-sonnet-4-6
     \tool{Copilot}             & Partial & No  & Partial & Fast inline completion \\
     \tool{Cursor}              & Yes     & No  & Yes     & GUI-based multi-file edits \\
     \tool{Claude Code}         & Yes     & No  & Yes     & Terminal, end-to-end tasks \\
-    \tool{GPT-5.5}             & Yes     & No  & Yes     & Agentic; mid-task steering, flagship reasoning \\
+    \tool{GPT-5.6 Sol}         & Yes     & No  & Yes     & Agentic; \texttt{max} reasoning and multi-agent mode \\
     \tool{PI}                  & Yes     & Yes & Yes     & Minimal highly extensible Terminal agent\\
     \tool{OpenCode}            & Yes     & Yes & Yes     & Terminal/IDE/desktop; 75+ LLM providers \\
     \bottomrule

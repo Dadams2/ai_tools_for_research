@@ -11,10 +11,11 @@ Beamer slide deck presented by David Adams (University of Melbourne, FEIT).
 3. Chat & reasoning workflows
 4. Coding assistants
 5. Agentic AI
-6. Literature discovery
-7. AI-assisted writing
-8. Caveats & responsible use
-9. Conclusion
+6. Evaluating and testing LLM workflows
+7. Literature discovery
+8. AI-assisted writing
+9. Caveats & responsible use
+10. Conclusion
 
 ## Building
 

@@ -243,6 +243,50 @@
   \end{columns}
 \end{frame}
 
+% ---- Logs to metrics visual demo --------------------------
+\begin{frame}{A useful agent loop turns logs into evidence}
+  \begin{columns}[T, onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \textbf{Demo workflow}\\[0.3em]
+      \begin{tikzpicture}[
+        node distance=0.55cm,
+        box/.style={draw, rounded corners=2pt, fill=mLightBrown!15,
+                    minimum width=3.7cm, minimum height=0.55cm,
+                    align=center, font=\scriptsize},
+        arr/.style={-{Stealth[length=4pt]}, thick, mLightBrown},
+      ]
+        \node[box] (logs) {Raw experiment logs};
+        \node[box, below=of logs] (metric) {Metric definition};
+        \node[box, below=of metric] (parser) {Parser / query};
+        \node[box, below=of parser] (table) {\texttt{metrics.csv}};
+        \node[box, below=of table] (widget) {Dashboard widget};
+
+        \draw[arr] (logs.south) -- (metric.north);
+        \draw[arr] (metric.south) -- (parser.north);
+        \draw[arr] (parser.south) -- (table.north);
+        \draw[arr] (table.south) -- (widget.north);
+      \end{tikzpicture}
+    \end{column}
+    \hfill
+    \begin{column}{0.42\textwidth}
+      \textbf{What the agent helps with}\\[0.3em]
+      \begin{itemize}
+        \item Propose a useful metric
+        \item Write the parser
+        \item Build a small widget
+        \item Explain the result
+      \end{itemize}
+      \vspace{0.3em}
+      \begin{block}{Verification boundary}
+        The model can suggest the loop. The evidence comes from computed outputs you can inspect.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---- Logs to metrics live demo ----------------------------
+\demoframe{Logs to metrics -- parse experiment logs, define a metric, and inspect the generated widget}
+
 % ---- Popular agent harnesses ------------------------------
 \begin{frame}{Popular Agent Harnesses (2026)}
   \scriptsize
@@ -329,7 +373,7 @@
   \textbf{Best practice:} Use agents for \emph{reversible, low-stakes} tasks. Build in checkpoints for irreversible actions.
   \vspace{0.4em}
 
-  \textbf{Progress note (early 2026):} Coding agents have improved dramatically. SWE-agent v1.07 resolves $\sim$68\% of SWE-bench Verified issues; Claude Opus 4.8 (Thinking) reaches 83.1\%; GPT-5.5 achieves 79.5\% on Terminal-Bench 2.0 and 59.4\% on SWE-Bench Pro. Human oversight remains essential for production code. \textit{(As of June 2026)}
+  \textbf{Progress note (July 2026):} Coding agents have improved dramatically. SWE-agent v1.07 resolves $\sim$68\% of SWE-bench Verified issues; Claude Fable 5 reaches 83.1\% on Terminal-Bench 2.1; GPT-5.6 Sol reaches 88.8\% on Terminal-Bench 2.1 and 64.6\% on SWE-Bench Pro. Human oversight remains essential for production code.
 \end{frame}
 
 % ---- Demo idea -------------------------------------------------------
